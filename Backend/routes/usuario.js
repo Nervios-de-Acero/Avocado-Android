@@ -120,28 +120,6 @@ router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
 
 })
 
-router.put('/actualizarImagen', (req, res)=>{
-  if(!req.body.imagen || !req.body.email){
-    res.status(400).json('Error. Imagen y mail obligatorios.')
-    return
-  }
-db.query(`UPDATE usuarios SET imagen = '${req.body.imagen}' WHERE email = '${req.body.email}'`, function(error, results){
-  if(error){
-    res.send({
-      success: false,
-      message: error
-    })
-    return
-  } else {
-    res.send({
-      success: true,
-      message: 'Imagen actualizada'
-    })
-  }
-})
-})
-
-
 router.delete('/eliminar', (req, res) => {
   const email = req.body.email
   console.log(email)
@@ -171,5 +149,30 @@ router.delete('/eliminar', (req, res) => {
   })
 
 })
+
+//#region Deshabilitados
+
+// router.put('/actualizarImagen', (req, res)=>{
+//   if(!req.body.imagen || !req.body.email){
+//     res.status(400).json('Error. Imagen y mail obligatorios.')
+//     return
+//   }
+// db.query(`UPDATE usuarios SET imagen = '${req.body.imagen}' WHERE email = '${req.body.email}'`, function(error, results){
+//   if(error){
+//     res.send({
+//       success: false,
+//       message: error
+//     })
+//     return
+//   } else {
+//     res.send({
+//       success: true,
+//       message: 'Imagen actualizada'
+//     })
+//   }
+// })
+// })
+
+//#endregion
 
 module.exports = router
