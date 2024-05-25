@@ -28,10 +28,10 @@ router.post('/', checkSchema(validaciones), (req, res) => {
         usuario = req.body.usuario,
         pass = bcrypt.hashSync(req.body.password, 12);
 
-  try {
+
   db.query(`CALL sp_registro(?,?,?,?,?);`, [email, nombreCompleto, usuario, pass, 0], function (error, results){
-    if(error && error.errno === 1644){
-      res.send({
+    if(error){
+      res.status(error.errno === 1644 ? 200 : 500).json({
         success: false,
         message: error.message,
         content: ''
@@ -45,13 +45,6 @@ router.post('/', checkSchema(validaciones), (req, res) => {
       })
     }
   })
-  } catch (error) {
-    res.send({
-        success: false,
-        message: error.message,
-        content: ''
-      })
-  }
 })
 
 module.exports = router
