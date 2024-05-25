@@ -25,44 +25,50 @@ router.post('/', checkSchema(validaciones), (req, res) => {
   }
 
   const pass = req.body.password;
-  let resBody = {}
-
-  db.query(`CALL sp_iniciarSesion('${req.body.email}');`, function (error, results, fields) {
-    const response = results[0][0]
-    if (error) {
-      res.send(error)
-    }
-    else {
-      if (response.success) {
-        if (bcrypt.compareSync(pass, response.result)) {
-          resBody = { success: true, message: "Sesión iniciada" }
-          req.session.user = {
-            email: req.body.email
-          }
-        }
-        else { resBody = { success: false, message: "Contraseña incorrecta" } }
-      }
-      else {
-        resBody = {
+  db.query(`CALL sp_getUsuario(?);`, [req.body.email], async function (error, results) {
+      if(error){
+        res.send({
           success: false,
-          message: 'El usuario no existe'
+          message: error.message,
+          content: ''
+        })
+        return
+      } else {
+        //Verificar contraseña
+        const user = results[0][0]
+        console.log(user)
+
+        const validPass = await bcrypt.compare(pass, user.contraseña)
+        if(!validPass){
+          res.send({
+            success: false,
+            message: 'Usuario o contraseña incorrectos',
+            content: ''
+          })
+          return
+        } else {
+          res.send({
+            success: true,
+            message: "Sesión iniciada correctamente",
+            content: ''
+          })
         }
+        
       }
-      res.send(resBody)
-    }
   })
 })
 
+//#region test endpoint
 // Crear hash para usuarios de prueba
-router.post('/hash', (req, res) => {
-  console.log(req.body)
-  const hash = bcrypt.hashSync(req.body.contraseña, 12)
-  res.send({
-    pass: req.body.contraseña,
-    hash
-  })
-})
-
+// router.post('/hash', (req, res) => {
+//   console.log(req.body)
+//   const hash = bcrypt.hashSync(req.body.contraseña, 12)
+//   res.send({
+//     pass: req.body.contraseña,
+//     hash
+//   })
+// })
+//#endregion
 
 
 module.exports = router
