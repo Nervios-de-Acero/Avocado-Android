@@ -74,6 +74,23 @@ router.get('/getRecetaById/:id', (req, res)=>{
   
 })
 
+router.get('/getProductos', (req, res)=> {
+  db.query(`CALL sp_getProductos();`,function(error, results){
+    if(error){
+      res.send({
+        success:false,
+        message: error,
+        content: ''
+      })
+    } else {
+      res.send({
+        success:true,
+        message: '',
+        content: results[0]
+      })
+    }
+  })
+})
 
 
 //#region Endpoints anulados
