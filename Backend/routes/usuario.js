@@ -29,11 +29,11 @@ router.get('/getUsuario/:email', (req, res) => {
 })
 
 router.put('/actualizarPerfil', checkSchema(validaciones), (req, res) => {
-  const resValidaciones = validationResult(req).array()
-  const nombreCompleto = req.body.nombreCompleto || null;
-  const usuario = req.body.usuario || null;
-  const imagen = req.body.imagen || null;
-  const email = req.body.email;
+  const resValidaciones = validationResult(req).array(),
+        nombreCompleto = req.body.nombreCompleto || null,
+        usuario = req.body.usuario || null,
+        email = req.body.email;
+
   if (!req.body.email) {
     res.status(400).json('Email obligatorio')
     return
@@ -48,15 +48,15 @@ router.put('/actualizarPerfil', checkSchema(validaciones), (req, res) => {
     return
   }
 
-  db.query(`CALL sp_actualizarPerfil('${email}', '${nombreCompleto}', '${imagen}', '${usuario}');`, function (error, results) {
+  db.query(`CALL sp_actualizarPerfil(?, ?, NULL, ?, NULL);`, [email, nombreCompleto, usuario], function (error, results) {
     if (error) {
-      res.send({
+      res.status(error.errno === 1644 ? 200 : 500).json({
         success: false,
-        message: error
+        message: error.message
       })
     }
     else {
-      res.send({
+      res.status(200).json({
         success: true,
         message: 'Se actualizaron los datos correctamente'
       })
@@ -120,28 +120,6 @@ router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
 
 })
 
-router.put('/actualizarImagen', (req, res)=>{
-  if(!req.body.imagen || !req.body.email){
-    res.status(400).json('Error. Imagen y mail obligatorios.')
-    return
-  }
-db.query(`UPDATE usuarios SET imagen = '${req.body.imagen}' WHERE email = '${req.body.email}'`, function(error, results){
-  if(error){
-    res.send({
-      success: false,
-      message: error
-    })
-    return
-  } else {
-    res.send({
-      success: true,
-      message: 'Imagen actualizada'
-    })
-  }
-})
-})
-
-
 router.delete('/eliminar', (req, res) => {
   const email = req.body.email
   console.log(email)
@@ -171,5 +149,30 @@ router.delete('/eliminar', (req, res) => {
   })
 
 })
+
+//#region Deshabilitados
+
+// router.put('/actualizarImagen', (req, res)=>{
+//   if(!req.body.imagen || !req.body.email){
+//     res.status(400).json('Error. Imagen y mail obligatorios.')
+//     return
+//   }
+// db.query(`UPDATE usuarios SET imagen = '${req.body.imagen}' WHERE email = '${req.body.email}'`, function(error, results){
+//   if(error){
+//     res.send({
+//       success: false,
+//       message: error
+//     })
+//     return
+//   } else {
+//     res.send({
+//       success: true,
+//       message: 'Imagen actualizada'
+//     })
+//   }
+// })
+// })
+
+//#endregion
 
 module.exports = router

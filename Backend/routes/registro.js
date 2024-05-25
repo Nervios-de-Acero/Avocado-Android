@@ -18,7 +18,6 @@ router.post('/', checkSchema(validaciones), (req, res) => {
       message: "Error en registro. Campos inválidos",
       content: resValidaciones
     })
-    console.log(req.body)
     return
   }
 
