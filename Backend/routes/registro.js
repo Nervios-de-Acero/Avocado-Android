@@ -10,44 +10,48 @@ router.post('/', checkSchema(validaciones), (req, res) => {
     res.status(400).send('Bad request. Campos incorrectos')
     return
 } 
-const resValidaciones = validationResult(req).array()
+  const resValidaciones = validationResult(req).array()
 
-if(resValidaciones.length > 0){
-  res.send({
-    success: false,
-    message: "Error en registro. Campos inválidos",
-    content: resValidaciones
-  })
-  console.log(req.body)
-  return
-}
-
-// lógica de registro
-const pass = bcrypt.hashSync(req.body.password, 12)
-
-db.query(`CALL sp_registro('${req.body.email}','${req.body.nombreCompleto}','${req.body.usuario}', '${pass}');`, function (error, results, fields){
-  const response = results[0][0]
-  if(error){
+  if(resValidaciones.length > 0){
     res.send({
       success: false,
-      message: error
+      message: "Error en registro. Campos inválidos",
+      content: resValidaciones
     })
-
+    console.log(req.body)
     return
+  }
 
-  }
-  if(response.success == 0){
+  // lógica de registro
+  const email = req.body.email,
+        nombreCompleto = req.body.nombreCompleto,
+        usuario = req.body.usuario,
+        pass = bcrypt.hashSync(req.body.password, 12);
+
+  try {
+  db.query(`CALL sp_registro(?,?,?,?,?);`, [email, nombreCompleto, usuario, pass, 0], function (error, results){
+    if(error && error.errno === 1644){
+      res.send({
+        success: false,
+        message: error.message,
+        content: ''
+      })
+      return
+    } else {
+      res.send({
+        success: true,
+        message: '¡Usuario registrado exitosamente!',
+        content: ''
+      })
+    }
+  })
+  } catch (error) {
     res.send({
-      success: false,
-      message: response.message
-    })
-  } else {
-    res.send({
-      success: true,
-      message: response.message
-    })
+        success: false,
+        message: error.message,
+        content: ''
+      })
   }
-})
 })
 
 module.exports = router
