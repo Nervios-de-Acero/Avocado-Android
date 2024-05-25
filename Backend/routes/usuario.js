@@ -7,21 +7,23 @@ const validaciones = require('../utils/validacionesPerfil')
 const validacionesPass = require('../utils/validacionesPassword')
 
 router.get('/getUsuario/:email', (req, res) => {
-  console.log(req.params.email)
-  db.query(`SELECT email, nombreCompleto, usuario, CONVERT(imagen USING utf8) AS imagen FROM usuarios WHERE email = '${req.params.email}'`, function(error, results){
-    if(error){
-      res.send({
-        success: true,
-        message: error
-      })
-      return
+  db.query(`CALL sp_getUsuario(?)`, [req.params.email], function (error, results) {
+    if (error) {
+      res.status(error.errno === 1644 ? 200 : 500)
+        .json({
+          success: false,
+          message: error.message,
+          content: ''
+        })
     } else {
-      res.send({
-        success: true,
-        message: "",
-        content: results[0]
+      const user = results[0][0]
+      delete user.contraseña
+      delete user.isAdmin
+      res.status(200).json({
+        success: false,
+        message: '',
+        content: user
       })
-
     }
   })
 })
