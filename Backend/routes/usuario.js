@@ -71,53 +71,55 @@ router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
   const nuevoPass = req.body.nuevoPassword
   const email = req.body.email
 
-  if(!email || !pass || !nuevoPass){
-    res.status(400).json('Error. Faltan campos obligatorios')
-    return
-  }
-  if(resValidaciones.length > 0){
-    res.send({
-      success: false,
-      message: 'Campos inválidos',
-      result: resValidaciones
-    })
-    return
-  }
+  // if(!email || !pass || !nuevoPass){
+  //   res.status(400).json('Error. Faltan campos obligatorios')
+  //   return
+  // }
+  // if(resValidaciones.length > 0){
+  //   res.send({
+  //     success: false,
+  //     message: 'Campos inválidos',
+  //     result: resValidaciones
+  //   })
+  //   return
+  // }
 
-  db.query(`SELECT contraseña FROM usuarios WHERE email = '${email}';`, function(error, results){
-    if(error){
-      res.send({
-        success: false,
-        message: error
-      })
-      return
-    } else {
-      const resultado = results[0]
-      if(bcrypt.compareSync(pass, resultado.contraseña)){
-        db.query(`UPDATE usuarios SET contraseña = '${bcrypt.hashSync(nuevoPass, 12)}' WHERE email = '${email}';`, function(error, results){
-          if(error){
-            res.send({
-              success: false,
-              message: error
-            })
-            return 
+  //comprobar usuario
+    //si es inexistente, error
+  //comparar contraseña
+    // si es incorrecta, error
+  // modificar contraseña
+    //mensaje de éxito
+
+    try {
+      db.query(`CALL sp_getUsuario(?);`,[email], function(error, results){
+        if(error){
+          throw new Error(error)
+        } else {
+          const resultado = results[0][0]
+          if(!bcrypt.compare(pass, resultado.contraseña)){
+            throw new Error('La contraseña es incorrecta')
           } else {
-            res.send({
-              success: true,
-              message: 'Contraseña actualizada correctamente'
+            const hasheado = bcrypt.hashSync(nuevoPass, 12)
+            db.query(`CALL sp_actualizarPerfil(?, NULL, NULL, NULL, ?);`, [email, hasheado], function(error, results){
+              if(error){
+                throw new Error(error)
+              } else {
+                res.status(200).json({
+                  success: true,
+                  message: 'Contraseña actualizada correctamente'
+                })
+                return
+              }
             })
-            return
           }
-        })
-      } else {
-        res.send({
+        } })
+      }catch (error) {
+        res.status(error.errno === 1644 ? 200 : 500).json({
           success: false,
-          message: 'La contraseña es incorrecta'
+          message: error.message
         })
-      }
-    }
-  })
-
+  }
 })
 
 router.delete('/eliminar', (req, res) => {
