@@ -247,14 +247,14 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
-        btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        /*btnFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir FavoritosActivity
                 Intent intent = new Intent(ModificarPerfilActivity.this, favoritesActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

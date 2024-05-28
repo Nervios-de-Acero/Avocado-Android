@@ -35,8 +35,8 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
                     android:contentDescription="Icono de Persona"
-                    android:src="@drawable/persona_icono"
-                    android:tint="#000000"
+                    android:src="@drawable/icon_user"
+                    android:tint="#03A9F4"
                     tools:ignore="UseAppTint" />
 
                 <TextView
@@ -92,15 +92,6 @@
                 android:textSize="15sp" />
 
             <!-- Fila 5 -->
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="5dp"
-                android:contentDescription="Icono de Estrella"
-                android:src="@drawable/estrella_icono"
-                android:tint="#000000"
-                tools:ignore="UseAppTint" />
 
         </LinearLayout>
 
