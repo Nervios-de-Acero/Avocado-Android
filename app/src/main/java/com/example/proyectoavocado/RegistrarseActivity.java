@@ -86,7 +86,7 @@ public class RegistrarseActivity extends AppCompatActivity {
                         } else {
                             msg = json.getString("message");
                         }
-
+                        // VER DE IMPLEMENTAR ESTOS MJS DE ERROR EN LAS OTRAS VENTANAS
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarseActivity.this);
                         builder.setTitle("Error");
                         builder.setMessage(msg);
