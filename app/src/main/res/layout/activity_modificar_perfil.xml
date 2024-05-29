@@ -102,13 +102,14 @@
                 android:layout_height="51dp"
                 android:layout_marginStart="19dp"
 
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="3dp"
                 android:fontFamily="@font/roboto_bold"
                 android:inputType="text"
                 android:text="Nombre y Apellido"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/btnEditNombre"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/perfilImagen"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,45 +118,62 @@
                 android:layout_width="156dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="19dp"
-                android:layout_marginEnd="96dp"
+                android:layout_marginEnd="14dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="nombreUsuario"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+                app:layout_constraintHorizontal_bias="0.02"
                 app:layout_constraintStart_toEndOf="@+id/perfilImagen"
                 app:layout_constraintTop_toBottomOf="@+id/perfilNombreCompleto"
-                app:layout_constraintVertical_bias="0.025" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageButton
                 android:id="@+id/btnEditNombre"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="boton para editar Nombre"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/icons8_pencil_24" />
 
-            <ImageButton
-                android:id="@+id/btnCancelEditNombre"
-                android:layout_width="48dp"
-                android:layout_height="40dp"
-                android:backgroundTint="#00FFFFFF"
-                android:contentDescription="boton para editar Nombre"
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
                 android:visibility="gone"
-                app:srcCompat="@drawable/x_icon" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/btnAceptarEditNombre"
-                android:layout_width="53dp"
-                android:layout_height="43dp"
-                android:backgroundTint="#00FFFFFF"
-                android:contentDescription="boton para editar Nombre"
-                android:visibility="gone"
-                app:srcCompat="@drawable/check_icon" />
+                <ImageButton
+                    android:id="@+id/btnAceptarEditNombre"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="boton para editar Nombre"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/check_icon" />
+
+                <ImageButton
+                    android:id="@+id/btnCancelEditNombre"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="boton para editar Nombre"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/x_icon" />
+
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
