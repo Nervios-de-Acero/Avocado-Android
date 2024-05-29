@@ -126,7 +126,7 @@
                 android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/toolbar3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/home_icono" />
+                app:srcCompat="@drawable/icon_home" />
 
             <ImageButton
                 android:id="@+id/btn_buscar"
@@ -135,10 +135,10 @@
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Buscar"
-                android:tint="@color/white"
+                android:tint="#002E53"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/toolbar3"
-                app:srcCompat="@drawable/lupa_icono"
+                app:srcCompat="@drawable/icon_buscar"
                 tools:ignore="UseAppTint" />
 
             <ImageButton
@@ -148,9 +148,9 @@
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Agregar Receta"
-                android:tint="@color/white"
+                android:tint="#035707"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-                app:srcCompat="@drawable/mas_icono"
+                app:srcCompat="@drawable/icon_a_adir"
                 tools:ignore="UseAppTint" />
 
             <ImageButton
@@ -160,8 +160,8 @@
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Favoritos"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/estrella_icono"
+                android:tint="#6A25E4"
+                app:srcCompat="@drawable/icon_carrito"
                 tools:ignore="UseAppTint" />
 
             <ImageButton
@@ -172,8 +172,8 @@
                 android:background="#00FFFFFF"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Perfil"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/persona_icono"
+                android:tint="#7EB3DD"
+                app:srcCompat="@drawable/icon_user"
                 tools:ignore="UseAppTint" />
 
         </LinearLayout>
