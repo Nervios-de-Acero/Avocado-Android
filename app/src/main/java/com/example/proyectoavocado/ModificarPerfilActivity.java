@@ -68,7 +68,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private ImageButton btnCambiarContraseña;
     private ImageButton btnCancelCambiarContraseña;
     private ImageButton btnAceptarCambiarContraseña;
-    private ImageButton btnSubirImagen;
+    // ImageButton btnSubirImagen;
 
     private ImageView perfilImagen;
 
@@ -97,7 +97,6 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
         btnCancelCambiarContraseña = findViewById(R.id.btnCancelCambiarContraseña);
         btnAceptarCambiarContraseña = findViewById(R.id.btnAceptarCambiarContraseña);
-        btnSubirImagen = findViewById(R.id.btnSubirImagen);
 
 
         //EditTexts
@@ -218,7 +217,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                         }
                     }
                 });
-        btnSubirImagen.setOnClickListener(new View.OnClickListener() {
+        /*btnSubirImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -226,7 +225,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             activityResultLauncher.launch(intent);
 
             }
-        });
+        });*/
 
         // Otros botones
         btnHome.setOnClickListener(new View.OnClickListener() {
