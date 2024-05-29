@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Layout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
@@ -62,6 +64,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private EditText perfilNombreUsuario;
     private String nombrePlaceholder;
    private String usuarioPlaceholder;
+
+   private LinearLayout layoutEditContainer;
     private ImageButton btnEditNombre;
     private ImageButton btnAceptarEditNombre;
     private ImageButton btnCancelEditNombre;
@@ -92,6 +96,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Button btnEliminarCuenta = findViewById(R.id.btn_eliminarCuenta);
 
         btnEditNombre = findViewById(R.id.btnEditNombre);
+        layoutEditContainer = findViewById(R.id.layoutEditContainer);
         btnAceptarEditNombre = findViewById(R.id.btnAceptarEditNombre);
         btnCancelEditNombre = findViewById(R.id.btnCancelEditNombre);
         btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
@@ -153,6 +158,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 btnEditNombre.setVisibility(View.GONE);
+                layoutEditContainer.setVisibility(View.VISIBLE);
                 btnAceptarEditNombre.setVisibility(View.VISIBLE);
                 btnCancelEditNombre.setVisibility(View.VISIBLE);
                 usuarioPlaceholder = perfilNombreUsuario.getText().toString();
@@ -173,6 +179,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
 
                 btnAceptarEditNombre.setVisibility(View.GONE);
                 btnCancelEditNombre.setVisibility(View.GONE);
+                layoutEditContainer.setVisibility(View.GONE);
                 btnEditNombre.setVisibility(View.VISIBLE);
             }
         });
@@ -193,6 +200,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
               // cambiar visibilidad
                 btnAceptarEditNombre.setVisibility(View.GONE);
                 btnCancelEditNombre.setVisibility(View.GONE);
+                layoutEditContainer.setVisibility(View.GONE);
                 btnEditNombre.setVisibility(View.VISIBLE);
               // deshabilitar
                 perfilNombreUsuario.setEnabled(false);
