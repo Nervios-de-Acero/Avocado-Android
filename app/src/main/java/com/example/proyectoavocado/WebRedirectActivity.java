@@ -28,7 +28,7 @@ public class WebRedirectActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir WebRedirectActivity
+                // Crear un Intent para abrir FeedActivity
                 Intent intent = new Intent(WebRedirectActivity.this, FeedActivity.class);
                 startActivity(intent);
             }
