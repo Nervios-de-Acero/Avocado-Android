@@ -39,7 +39,7 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton  btnSuscripcion = findViewById(R.id.btn_suscripcion);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         ImageButton btnBuscar = findViewById(R.id.btn_buscar);
         //ID SearchView

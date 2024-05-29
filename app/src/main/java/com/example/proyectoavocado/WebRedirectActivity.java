@@ -22,6 +22,7 @@ public class WebRedirectActivity extends AppCompatActivity {
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
+        ImageButton btnBuscar = findViewById(R.id.btn_buscar);
         Button btnWeb = findViewById(R.id.btn_web);
 
         btnHome.setOnClickListener(new View.OnClickListener() {

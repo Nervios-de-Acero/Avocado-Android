@@ -16,10 +16,11 @@ public class AcercaActivity extends AppCompatActivity {
 
         ImageButton btnVolverPerfil = findViewById(R.id.btn_volverPerfil);
         ImageButton btnHome = findViewById(R.id.btn_home);
-        ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
+        ImageButton btnBuscar = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_suscripcion);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
+
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,11 +40,11 @@ public class AcercaActivity extends AppCompatActivity {
             }
         });
 
-        btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(AcercaActivity.this, AcercaActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(AcercaActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
         });
