@@ -30,7 +30,6 @@ import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteViewAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasoViewAdapter;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +65,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnFavoritos = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         btnMenuReceta = findViewById(R.id.btn_menu_receta);
 

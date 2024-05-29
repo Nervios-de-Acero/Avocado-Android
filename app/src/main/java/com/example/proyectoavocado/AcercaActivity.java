@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.proyectoavocado.R;
-
 public class AcercaActivity extends AppCompatActivity {
 
     @Override
@@ -20,7 +18,7 @@ public class AcercaActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnFavoritos = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
 
         btnHome.setOnClickListener(new View.OnClickListener() {

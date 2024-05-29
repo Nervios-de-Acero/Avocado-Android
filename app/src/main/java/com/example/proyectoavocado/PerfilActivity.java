@@ -60,7 +60,7 @@ public class PerfilActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnFavoritos = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         Button btnEditar = findViewById(R.id.btn_editar);
 

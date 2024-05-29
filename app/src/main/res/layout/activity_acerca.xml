@@ -301,7 +301,7 @@
                 tools:ignore="UseAppTint" />
 
             <ImageButton
-                android:id="@+id/btn_favoritos"
+                android:id="@+id/btn_suscripcion"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

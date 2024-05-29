@@ -1,41 +1,34 @@
 package com.example.proyectoavocado;
 
-import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.content.Intent;
+import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-public class ContactoActivity extends AppCompatActivity {
 
+public class WebRedirectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacto);
+        setContentView(R.layout.activity_web_redirect);
 
         //capturo los id de los botones
-        ImageButton btnBack = findViewById(R.id.btn_volverFeed);
         ImageButton btnHome = findViewById(R.id.btn_home);
-        ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_suscripcion);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Crear un Intent para abrir FeedActivity
-                Intent intent = new Intent(ContactoActivity.this, InicioActivity.class);
-                startActivity(intent);
-            }
-        });
+        Button btnWeb = findViewById(R.id.btn_web);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FeedActivity
-                Intent intent = new Intent(ContactoActivity.this, FeedActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(WebRedirectActivity.this, FeedActivity.class);
                 startActivity(intent);
             }
         });
@@ -44,27 +37,34 @@ public class ContactoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir AgregarRecetaActivity
-                Intent intent = new Intent(ContactoActivity.this, AgregaRecetaActivity.class);
+                Intent intent = new Intent(WebRedirectActivity.this, AgregaRecetaActivity.class);
                 startActivity(intent);
             }
         });
 
-        /*btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(ContactoActivity.this, favoritesActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(WebRedirectActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir PerfilActivity
-                Intent intent = new Intent(ContactoActivity.this, PerfilActivity.class);
+                Intent intent = new Intent(WebRedirectActivity.this, PerfilActivity.class);
                 startActivity(intent);
             }
+        });
+
+        btnWeb.setOnClickListener(view -> {
+            String url = "http://localhost:4200/suscribirse";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         });
     }
 }
