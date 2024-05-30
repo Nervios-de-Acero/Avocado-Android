@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -60,7 +61,7 @@ public class PerfilActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         Button btnEditar = findViewById(R.id.btn_editar);
 
@@ -74,7 +75,7 @@ public class PerfilActivity extends AppCompatActivity {
         text_nombre = findViewById(R.id.text_nombre);
         text_nombreusuario = findViewById(R.id.text_nombreusuario);
         imageViewPerfil = findViewById(R.id.imageViewPerfil);
-        boton_menuDesplegable = findViewById(R.id.boton_menuDesplegable);
+        ImageView menuIcon = findViewById(R.id.menu_icon);
 
 
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -95,11 +96,11 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
-        btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(PerfilActivity.this, favoritesActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(PerfilActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
         });
@@ -122,8 +123,13 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
-
-
+        // Establece un OnClickListener para el icono de menú
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);
+            }
+        });
 
     }
 
@@ -135,7 +141,7 @@ public class PerfilActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
@@ -162,6 +168,45 @@ public class PerfilActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }*/
+    // Método para mostrar el menú emergente
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Maneja las acciones correspondientes a cada ítem del menú
+                switch (item.getItemId()) {
+                    case 1:
+                        startActivity(new Intent(PerfilActivity.this, ContactoActivity.class));
+                        return true;
+                    case 2:
+                        startActivity(new Intent(PerfilActivity.this, AcercaActivity.class));
+                        return true;
+                    case 3:
+                        // Aquí maneja el cierre de sesión
+                        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        Intent intent = new Intent(PerfilActivity.this, InicioActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Agrega las opciones del menú programáticamente
+        popupMenu.getMenu().add(0, 1, 0, "Contacto");
+        popupMenu.getMenu().add(0, 2, 0, "Acerca de");
+        popupMenu.getMenu().add(0, 3, 0, "Cerrar Sesión");
+
+        // Muestra el menú emergente
+        popupMenu.show();
     }
 
     private void traerDatosPerfil(String userEmail){

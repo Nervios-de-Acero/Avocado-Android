@@ -268,7 +268,7 @@
             android:contentDescription="boton para editar contraseña"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pen_icon" />
+            app:srcCompat="@drawable/icons8_pencil_24" />
 
         <EditText
             android:id="@+id/perfilPassword2"
@@ -356,77 +356,76 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:outlineProvider="none"
+            tools:layout_editor_absoluteY="7dp">
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:contentDescription="Home"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/icon_home" />
+
+            <ImageButton
+                android:id="@+id/btn_buscar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Buscar"
+                android:tint="#002E53"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar3"
+                app:srcCompat="@drawable/icon_buscar"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_agregar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Agregar Receta"
+                android:tint="#035707"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+                app:srcCompat="@drawable/icon_a_adir"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_suscripcion"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="Favoritos"
+                android:tint="#6A25E4"
+                app:srcCompat="@drawable/icon_carrito"
+                tools:ignore="UseAppTint" />
+
+            <ImageButton
+                android:id="@+id/btn_perfil"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="#00FFFFFF"
                 android:backgroundTint="#00FFFFFF"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:outlineProvider="none"
-                >
-
-                <ImageButton
-                    android:id="@+id/btn_home"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:contentDescription="Home"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toTopOf="@+id/toolbar3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/home_icono" />
-
-                <ImageButton
-                    android:id="@+id/btn_buscar"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="Buscar"
-                    android:tint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/toolbar3"
-                    app:srcCompat="@drawable/lupa_icono"
-                    />
-
-                <ImageButton
-                    android:id="@+id/btn_agregar"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="Agregar Receta"
-                    android:tint="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-                    app:srcCompat="@drawable/mas_icono"
-                   />
-
-                <ImageButton
-                    android:id="@+id/btn_favoritos"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="Favoritos"
-                    android:tint="@color/white"
-                    app:srcCompat="@drawable/estrella_icono"
-                    />
-
-                <ImageButton
-                    android:id="@+id/btn_perfil"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="Perfil"
-                    android:tint="@color/white"
-                    app:srcCompat="@drawable/persona_icono"
-                    />
-
-            </LinearLayout>
+                android:contentDescription="Perfil"
+                android:tint="#7EB3DD"
+                app:srcCompat="@drawable/icon_user"
+                tools:ignore="UseAppTint" />
+        </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
     </LinearLayout>
