@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -41,7 +39,7 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         ImageButton btnBuscar = findViewById(R.id.btn_buscar);
         //ID SearchView
@@ -77,14 +75,14 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        /*btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(FeedActivity.this, favoritesActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(FeedActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

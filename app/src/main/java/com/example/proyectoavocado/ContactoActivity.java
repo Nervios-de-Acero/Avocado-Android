@@ -3,7 +3,6 @@ package com.example.proyectoavocado;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.content.Intent;
 import android.widget.ImageButton;
 
@@ -20,7 +19,7 @@ public class ContactoActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -50,14 +49,14 @@ public class ContactoActivity extends AppCompatActivity {
             }
         });
 
-        /*btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(ContactoActivity.this, favoritesActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(ContactoActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

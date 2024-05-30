@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/btn_meu"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FeedActivity">
+    tools:context=".WebRedirectActivity">
 
-    <!-- Barra de navegación superior -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/menuPrincipal"
         android:layout_width="409dp"
@@ -50,48 +49,17 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="237dp"
-                    android:contentDescription="Boton para abrir menu"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="-5dp"
                     android:layout_toEndOf="@+id/imageView5"
                     android:backgroundTint="#00FFFFFF"
+                    android:contentDescription="Boton para abrir menu"
                     android:tint="#3C5B27"
                     app:srcCompat="@android:drawable/ic_menu_sort_by_size"
-                    tools:ignore="UseAppTint" />
+                    tools:ignore="HardcodedText,UseAppTint,ImageContrastCheck" />
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
-
-    <!-- Menú de abajo -->
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="57dp"
-        android:layout_marginBottom="57dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <GridLayout
-            android:id="@+id/grid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnCount="1"
-            android:gravity="center">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/receta_feed_card" />
-
-        </GridLayout>
-    </ScrollView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
@@ -104,6 +72,7 @@
         android:theme="?attr/actionBarTheme"
         app:contentInsetStart="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
 
@@ -126,7 +95,8 @@
                 android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/toolbar3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/icon_home" />
+                app:srcCompat="@drawable/icon_home"
+                tools:ignore="HardcodedText" />
 
             <ImageButton
                 android:id="@+id/btn_buscar"
@@ -139,7 +109,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/toolbar3"
                 app:srcCompat="@drawable/icon_buscar"
-                tools:ignore="UseAppTint" />
+                tools:ignore="HardcodedText,UseAppTint" />
 
             <ImageButton
                 android:id="@+id/btn_agregar"
@@ -151,7 +121,7 @@
                 android:tint="#035707"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar3"
                 app:srcCompat="@drawable/icon_a_adir"
-                tools:ignore="UseAppTint" />
+                tools:ignore="HardcodedText,UseAppTint" />
 
             <ImageButton
                 android:id="@+id/btn_suscripcion"
@@ -162,7 +132,7 @@
                 android:contentDescription="Favoritos"
                 android:tint="#6A25E4"
                 app:srcCompat="@drawable/icon_carrito"
-                tools:ignore="UseAppTint" />
+                tools:ignore="HardcodedText,UseAppTint" />
 
             <ImageButton
                 android:id="@+id/btn_perfil"
@@ -174,20 +144,84 @@
                 android:contentDescription="Perfil"
                 android:tint="#7EB3DD"
                 app:srcCompat="@drawable/icon_user"
-                tools:ignore="UseAppTint" />
+                tools:ignore="HardcodedText,UseAppTint,ImageContrastCheck" />
 
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
-    <!--Boton de Busqueda -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="0dp"
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:background="#B8E092"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Descubre Nuestras Suscripciones"
+        android:textColor="#3C5B27"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuPrincipal"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="367dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto"
+        android:text="En Avocado, ofrecemos una selección exclusiva de combos de recetas diseñados para adaptarse a tus necesidades y preferencias. Elige entre una variedad de combos que incluyen recetas para diferentes cantidades de personas y recibe todos los ingredientes frescos directamente en tu puerta. Simplifica tu cocina y disfruta de comidas deliciosas sin complicaciones."
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.433"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="356dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="&quot;Para explorar nuestros combos de recetas y suscribirte, visita nuestra página web. Haz clic en el botón a continuación para ser redirigido a la página de suscripciones.&quot;"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+
+    <Button
+        android:id="@+id/btn_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#3C5B27"
+        android:fontFamily="@font/roboto"
+        android:text="Explorar Combos y Suscribirse"
+        android:textAllCaps="false"
+        android:textColor="#FDFFEB"
+        android:textSize="14sp"
+        app:cornerRadius="100sp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="0.288"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="336dp"
+        android:layout_height="217dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:srcCompat="@drawable/captura2"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

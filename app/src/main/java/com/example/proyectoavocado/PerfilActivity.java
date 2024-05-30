@@ -60,7 +60,7 @@ public class PerfilActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         Button btnEditar = findViewById(R.id.btn_editar);
 
@@ -95,14 +95,14 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
-       /* btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(PerfilActivity.this, favoritesActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(PerfilActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
