@@ -11,10 +11,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +32,6 @@ import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteViewAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasoViewAdapter;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,9 +67,10 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         btnMenuReceta = findViewById(R.id.btn_menu_receta);
+        ImageView menuIcon = findViewById(R.id.menu_icon);
 
         // Instanciar las variables de la interfaz de usuario
         tituloReceta = findViewById(R.id.tituloReceta);
@@ -124,14 +126,14 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             }
         });
 
-        /*btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(VistaDetalladaActivity.this, favoritesActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(VistaDetalladaActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +148,14 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showPopupMenu(view);
+            }
+        });
+
+        // Establece un OnClickListener para el icono de menú
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);
             }
         });
     }
@@ -182,6 +192,43 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         builder.setView(customMenuView);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Maneja las acciones correspondientes a cada ítem del menú
+                switch (item.getItemId()) {
+                    case 1:
+                        startActivity(new Intent(VistaDetalladaActivity.this, ContactoActivity.class));
+                        return true;
+                    case 2:
+                        startActivity(new Intent(VistaDetalladaActivity.this, AcercaActivity.class));
+                        return true;
+                    case 3:
+                        // Aquí maneja el cierre de sesión
+                        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        Intent intent = new Intent(VistaDetalladaActivity.this, InicioActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Agrega las opciones del menú programáticamente
+        popupMenu.getMenu().add(0, 1, 0, "Contacto");
+        popupMenu.getMenu().add(0, 2, 0, "Acerca de");
+        popupMenu.getMenu().add(0, 3, 0, "Cerrar Sesión");
+
+        // Muestra el menú emergente
+        popupMenu.show();
     }
 
     public class RecetasUsuarioRequest {
