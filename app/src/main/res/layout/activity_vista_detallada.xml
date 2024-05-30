@@ -32,6 +32,24 @@
           android:layout_centerVertical="true">
 
         <ImageButton
+            android:id="@+id/menu_icon"
+            android:layout_width="42dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="194dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="9dp"
+            android:layout_toEndOf="@+id/imageView5"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="Boton para abrir menu"
+            android:tint="#3C5B27"
+            app:srcCompat="@drawable/icon_menu"
+            tools:ignore="UseAppTint,TouchTargetSizeCheck" />
+
+        <ImageButton
             android:id="@+id/btn_backFeed"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
