@@ -1,15 +1,23 @@
 package com.example.proyectoavocado;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,6 +50,7 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
         ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         ImageButton btnBuscar = findViewById(R.id.btn_buscar);
+        ImageView menuIcon = findViewById(R.id.menu_icon);
         //ID SearchView
         searchView = findViewById(R.id.searchView);
 
@@ -90,6 +99,14 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
                 // Crear un Intent para abrir PerfilActivity
                 Intent intent = new Intent(FeedActivity.this, PerfilActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // Establece un OnClickListener para el icono de menú
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);
             }
         });
 
@@ -170,5 +187,45 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onQueryTextChange(String newText) {
         adapter.filtrado(newText);
         return false;
+    }
+
+    // Método para mostrar el menú emergente
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Maneja las acciones correspondientes a cada ítem del menú
+                switch (item.getItemId()) {
+                    case 1:
+                        startActivity(new Intent(FeedActivity.this, ContactoActivity.class));
+                        return true;
+                    case 2:
+                        startActivity(new Intent(FeedActivity.this, AcercaActivity.class));
+                        return true;
+                    case 3:
+                        // Aquí maneja el cierre de sesión
+                        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        Intent intent = new Intent(FeedActivity.this, InicioActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Agrega las opciones del menú programáticamente
+        popupMenu.getMenu().add(0, 1, 0, "Contacto");
+        popupMenu.getMenu().add(0, 2, 0, "Acerca de");
+        popupMenu.getMenu().add(0, 3, 0, "Cerrar Sesión");
+
+        // Muestra el menú emergente
+        popupMenu.show();
     }
 }

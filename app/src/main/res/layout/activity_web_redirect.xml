@@ -43,19 +43,19 @@
                     tools:ignore="HardcodedText,MissingConstraints" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/menu_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="47dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="237dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="-5dp"
+                    android:layout_marginStart="230dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="9dp"
                     android:layout_toEndOf="@+id/imageView5"
                     android:backgroundTint="#00FFFFFF"
                     android:contentDescription="Boton para abrir menu"
                     android:tint="#3C5B27"
-                    app:srcCompat="@android:drawable/ic_menu_sort_by_size"
+                    app:srcCompat="@drawable/icon_menu"
                     tools:ignore="HardcodedText,UseAppTint,ImageContrastCheck" />
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
