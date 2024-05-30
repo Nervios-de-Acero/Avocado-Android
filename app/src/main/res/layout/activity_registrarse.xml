@@ -10,8 +10,7 @@
             android:id="@+id/textView2"
             android:layout_width="332dp"
             android:layout_height="52dp"
-            android:layout_marginStart="39dp"
-            android:layout_marginBottom="42dp"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/roboto"
             android:gravity="center_horizontal|center_vertical"
             android:text="Al registrarte aceptas nuestras Condiciones y la Política de privacidad"
@@ -19,6 +18,7 @@
             android:textColor="#000000"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
@@ -74,11 +74,27 @@
             android:fontFamily="@font/roboto"
             android:gravity="center_horizontal|center_vertical"
             android:hint="Contraseña"
-            android:inputType="text|textPassword"
+            android:inputType="textPassword"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etUser" />
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="235dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#D9D9D9"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal|center_vertical"
+            android:ems="10"
+            android:hint="Confirmar Contraseña"
+            android:textAlignment="center"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
         <EditText
             android:id="@+id/etEmail"
@@ -130,7 +146,7 @@
             android:id="@+id/btn_registrarse"
             android:layout_width="202dp"
             android:layout_height="64dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:backgroundTint="#B8E092"
             android:fontFamily="@font/roboto"
             android:gravity="center_horizontal|center_vertical"
@@ -140,7 +156,8 @@
             android:textSize="20sp"
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
