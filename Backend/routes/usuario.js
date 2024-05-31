@@ -66,91 +66,130 @@ return
 })
 
 router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
+
   const resValidaciones = validationResult(req).array();
-  const pass = req.body.password
-  const nuevoPass = req.body.nuevoPassword
-  const email = req.body.email
+  const pass = req.body.password;
+  const nuevoPass = req.body.nuevoPassword;
+  const email = req.body.email;
 
-  // if(!email || !pass || !nuevoPass){
-  //   res.status(400).json('Error. Faltan campos obligatorios')
-  //   return
-  // }
-  // if(resValidaciones.length > 0){
-  //   res.send({
-  //     success: false,
-  //     message: 'Campos inválidos',
-  //     result: resValidaciones
-  //   })
-  //   return
-  // }
+  if(!email || !pass || !nuevoPass){
 
-  //comprobar usuario
-    //si es inexistente, error
-  //comparar contraseña
-    // si es incorrecta, error
-  // modificar contraseña
-    //mensaje de éxito
+    res.status(400).json('Error. Faltan campos obligatorios');
+    return;
+  }
 
-    try {
-      db.query(`CALL sp_getUsuario(?);`,[email], function(error, results){
-        if(error){
-          throw new Error(error)
-        } else {
-          const resultado = results[0][0]
-          if(!bcrypt.compare(pass, resultado.contraseña)){
-            throw new Error('La contraseña es incorrecta')
-          } else {
-            const hasheado = bcrypt.hashSync(nuevoPass, 12)
-            db.query(`CALL sp_actualizarPerfil(?, NULL, NULL, NULL, ?);`, [email, hasheado], function(error, results){
-              if(error){
-                throw new Error(error)
-              } else {
-                res.status(200).json({
-                  success: true,
-                  message: 'Contraseña actualizada correctamente'
-                })
-                return
-              }
-            })
-          }
-        } })
-      }catch (error) {
-        res.status(error.errno === 1644 ? 200 : 500).json({
+  if(resValidaciones.length > 0){
+
+    res.send({
+      success: false,
+      message: 'Campos inválidos',
+      result: resValidaciones,
+    });
+
+    return;
+  }
+
+  try{
+
+    db.query(`CALL sp_getUsuario('${email}')`, (error, results) =>{
+
+      if(error){
+
+        res.send({
           success: false,
-          message: error.message
-        })
-  }
-})
+          message: error,
+        });
+        
+        return;
+      } else {
 
-router.delete('/eliminar', (req, res) => {
-  const email = req.body.email
-  console.log(email)
-  if (typeof email === 'undefined') {
-    res.status(400).json('No se encontró el email')
-    return
-  }
-  db.query(`DELETE FROM usuarios WHERE email = '${email}'`, function (error, results) {
-    if (error) {
-      res.send(error)
-    }
-    else {
-      req.session.destroy(err => {
-        if (err) {
+        const resultado = results[0][0];
+
+        if(bcrypt.compareSync(pass, resultado.contraseña)){
+
+          db.query(`CALL sp_actualizarPerfil('${email}', null, null, null, '${bcrypt.hashSync(nuevoPass, 12)}')`, function(error, results){
+            
+            if(error){
+
+              res.send({
+                success: false,
+                message: error,
+              });
+              return;
+            } else {
+
+              res.send({
+                success: true,
+                message: 'Contraseña actualizada correctamente',
+              });
+              return;
+            }
+          });
+        } else {
+
           res.send({
             success: false,
-            message: err
-          })
-          return
+            message: 'La contraseña es incorrecta'
+          });
         }
-      })
-      res.send({
-        success: true,
-        message: 'Usuario eliminado correctamente'
-      })
-    }
-  })
+      }
+    });
+  } catch(e){
 
-})
+    res.send({
+      success: false,
+      message: e,
+    });
+  }
+
+});
+
+router.delete('/eliminar', (req, res) => {
+  const email = req.body.email;
+
+  if (typeof email === 'undefined') {
+
+    res.status(400).json('No se encontró el email');
+    return;
+  }
+
+  try{
+
+    db.query(`CALL sp_eliminarUsuario('${email}')`, function (error, results) {
+  
+      if (error) {
+  
+        res.send(error);
+      }
+      else {
+  
+        req.session.destroy(err => {
+  
+          if (err) {
+  
+            res.send({
+              success: false,
+              message: err,
+            });
+            return;
+          }
+        });
+  
+        res.send({
+          success: true,
+          message: 'Usuario eliminado correctamente',
+        });
+      }
+    });
+  } catch(e){
+
+    res.send({
+      success: false,
+      message: e,
+    });
+    return;
+  }
+});
 
 //#region Deshabilitados
 
