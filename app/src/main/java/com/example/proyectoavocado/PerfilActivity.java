@@ -65,7 +65,6 @@ public class PerfilActivity extends AppCompatActivity {
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         Button btnEditar = findViewById(R.id.btn_editar);
 
-
         sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         String emailSp = sharedPreferences.getString("email", "");
         traerDatosPerfil(emailSp);
