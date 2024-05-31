@@ -103,7 +103,7 @@ router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
         return;
       } else {
 
-        const resultado = results[0]
+        const resultado = results[0][0];
 
         if(bcrypt.compareSync(pass, resultado.contraseña)){
 
