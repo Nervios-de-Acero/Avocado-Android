@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btn_volverFeed"
+            android:id="@+id/btn_volverInicio"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
@@ -62,7 +62,7 @@
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/input_asunto"
+        android:id="@+id/etAsunto"
         android:layout_width="264dp"
         android:layout_height="48dp"
         android:layout_marginTop="52dp"
@@ -75,7 +75,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/etComentario"
         android:layout_width="269dp"
         android:layout_height="108dp"
         android:layout_marginTop="36dp"
@@ -86,7 +86,7 @@
         android:text="Coméntanos tu problema"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_asunto"
+        app:layout_constraintTop_toBottomOf="@+id/etAsunto"
         tools:ignore="MissingConstraints" />
 
 
@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
+        app:layout_constraintTop_toBottomOf="@+id/etComentario"
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.Toolbar
