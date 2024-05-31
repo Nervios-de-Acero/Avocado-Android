@@ -245,27 +245,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/nuevoPass"
-            android:layout_width="215dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto"
-            android:padding="5sp"
-            android:text="@string/new_password"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/perfilPassword1" />
-
         <EditText
             android:id="@+id/perfilPassword1"
             android:layout_width="215dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto"
             android:hint="***********"
             android:inputType="textPassword"
@@ -273,6 +257,34 @@
             android:textColor="#3C5B27"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/nuevoPass"
+            android:layout_width="215dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:padding="5sp"
+            android:text="@string/new_password"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/perfilPassword1" />
+
+        <EditText
+            android:id="@+id/perfilPassword2"
+            android:layout_width="215dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto"
+            android:hint="***********"
+            android:inputType="textPassword"
+            android:textColor="#3C5B27"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nuevoPass" />
 
         <ImageButton
             android:id="@+id/btnCambiarContraseña"
@@ -286,22 +298,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icons8_pencil_24" />
-
-        <EditText
-            android:id="@+id/perfilPassword2"
-            android:layout_width="215dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:fontFamily="@font/roboto"
-            android:hint="***********"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColor="#3C5B27"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <LinearLayout
             android:id="@+id/nuevaPassContainer"

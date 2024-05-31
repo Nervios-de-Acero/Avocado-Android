@@ -123,6 +123,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         perfilNombreCompleto.setEnabled(false);
         perfilNombreUsuario.setEnabled(false);
         perfilPassword1.setEnabled(false);
+        nuevoPass.setVisibility(View.INVISIBLE);
+        perfilPassword2.setVisibility(View.INVISIBLE);
 
         sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         String emailSp = sharedPreferences.getString("email", "");
