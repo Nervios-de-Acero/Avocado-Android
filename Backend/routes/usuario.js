@@ -121,34 +121,51 @@ router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
 })
 
 router.delete('/eliminar', (req, res) => {
-  const email = req.body.email
-  console.log(email)
-  if (typeof email === 'undefined') {
-    res.status(400).json('No se encontró el email')
-    return
-  }
-  db.query(`DELETE FROM usuarios WHERE email = '${email}'`, function (error, results) {
-    if (error) {
-      res.send(error)
-    }
-    else {
-      req.session.destroy(err => {
-        if (err) {
-          res.send({
-            success: false,
-            message: err
-          })
-          return
-        }
-      })
-      res.send({
-        success: true,
-        message: 'Usuario eliminado correctamente'
-      })
-    }
-  })
+  const email = req.body.email;
 
-})
+  if (typeof email === 'undefined') {
+
+    res.status(400).json('No se encontró el email');
+    return;
+  }
+
+  try{
+
+    db.query(`CALL sp_eliminarUsuario('${email}')`, function (error, results) {
+  
+      if (error) {
+  
+        res.send(error);
+      }
+      else {
+  
+        req.session.destroy(err => {
+  
+          if (err) {
+  
+            res.send({
+              success: false,
+              message: err,
+            });
+            return;
+          }
+        });
+  
+        res.send({
+          success: true,
+          message: 'Usuario eliminado correctamente',
+        });
+      }
+    });
+  } catch(e){
+
+    res.send({
+      success: false,
+      message: e,
+    });
+    return;
+  }
+});
 
 //#region Deshabilitados
 
