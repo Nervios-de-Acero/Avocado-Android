@@ -4,6 +4,7 @@ package com.example.proyectoavocado;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -64,7 +65,10 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private String nombrePlaceholder;
    private String usuarioPlaceholder;
 
+   private TextView nuevoPass;
+
    private LinearLayout layoutEditContainer;
+   private LinearLayout nuevaPassContainer;
     private ImageButton btnEditNombre;
     private ImageButton btnAceptarEditNombre;
     private ImageButton btnCancelEditNombre;
@@ -80,6 +84,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
     SharedPreferences sharedPreferences;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +101,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
 
         btnEditNombre = findViewById(R.id.btnEditNombre);
         layoutEditContainer = findViewById(R.id.layoutEditContainer);
+        nuevaPassContainer = findViewById(R.id.nuevaPassContainer);
         btnAceptarEditNombre = findViewById(R.id.btnAceptarEditNombre);
         btnCancelEditNombre = findViewById(R.id.btnCancelEditNombre);
         btnCambiarContraseña = findViewById(R.id.btnCambiarContraseña);
@@ -109,6 +115,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         perfilEmail = findViewById(R.id.perfilEmail);
         perfilNombreCompleto = findViewById(R.id.perfilNombreCompleto);
         perfilNombreUsuario = findViewById(R.id.perfilNombreUsuario);
+        nuevoPass = findViewById(R.id.nuevoPass);
 
         perfilImagen = findViewById(R.id.perfilImagen);
 
@@ -130,9 +137,10 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                 perfilPassword2.setEnabled(false);
                 perfilPassword2.setVisibility(View.GONE);
 
-                btnAceptarCambiarContraseña.setVisibility(View.GONE);
-                btnCancelCambiarContraseña.setVisibility(View.GONE);
+                nuevoPass.setVisibility(View.INVISIBLE);
+
                 btnCambiarContraseña.setVisibility(View.VISIBLE);
+                nuevaPassContainer.setVisibility(View.GONE);
             }
         });
 
@@ -140,12 +148,13 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 btnCambiarContraseña.setVisibility(View.GONE);
-                btnAceptarCambiarContraseña.setVisibility(View.VISIBLE);
-                btnCancelCambiarContraseña.setVisibility(View.VISIBLE);
                 perfilPassword2.setVisibility(View.VISIBLE);
+                nuevaPassContainer.setVisibility(View.VISIBLE);
 
                 perfilPassword1.setEnabled(true);
                 perfilPassword2.setEnabled(true);
+
+                nuevoPass.setVisibility(View.VISIBLE);
 
                 perfilPassword1.setText("");
                 perfilPassword2.setText("");
@@ -188,6 +197,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //llamar actualizar pass
                 cambiarContraseña();
+
 
             }
         });
@@ -521,8 +531,8 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                         perfilPassword1.setEnabled(false);
                         perfilPassword2.setEnabled(false);
                         perfilPassword2.setVisibility(View.GONE);
-                        btnAceptarCambiarContraseña.setVisibility(View.GONE);
-                        btnCancelCambiarContraseña.setVisibility(View.GONE);
+                        nuevaPassContainer.setVisibility(View.GONE);
+                        nuevoPass.setVisibility(View.INVISIBLE);
                         btnCambiarContraseña.setVisibility(View.VISIBLE);
 
 

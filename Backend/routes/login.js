@@ -60,14 +60,14 @@ router.post('/', checkSchema(validaciones), (req, res) => {
 
 //#region test endpoint
 // Crear hash para usuarios de prueba
-// router.post('/hash', (req, res) => {
-//   console.log(req.body)
-//   const hash = bcrypt.hashSync(req.body.contraseña, 12)
-//   res.send({
-//     pass: req.body.contraseña,
-//     hash
-//   })
-// })
+router.post('/hash', (req, res) => {
+  console.log(req.body)
+  const hash = bcrypt.hashSync(req.body.contraseña, 12)
+  res.send({
+    pass: req.body.contraseña,
+    hash
+  })
+})
 //#endregion
 
 

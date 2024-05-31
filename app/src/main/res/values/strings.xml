@@ -8,6 +8,7 @@
     <string name="subtitle_eliminarPerfil">Si realizas esta acción se perderán todos los datos de tu cuenta</string>
     <string name="selecciona_dificultad">Selecciona la dificultad</string>
     <string name="profileImage">imagen de perfil</string>
+    <string name="new_password">Nueva contraseña</string>
     <string-array name="niveles_dificultad">
         <item>Principiante</item>
         <item>Intermedio</item>
