@@ -15,7 +15,7 @@ public class ContactoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contacto);
 
         //capturo los id de los botones
-        ImageButton btnBack = findViewById(R.id.btn_volverFeed);
+        ImageButton btnBack = findViewById(R.id.btn_volverInicio);
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
