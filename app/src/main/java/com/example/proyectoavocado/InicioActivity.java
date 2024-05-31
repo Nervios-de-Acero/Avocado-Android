@@ -45,7 +45,7 @@ public class InicioActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir ContactoActivity
-                Intent intent = new Intent(InicioActivity.this, ContactoActivity.class);
+                Intent intent = new Intent(InicioActivity.this, ContactoNoUserActivity.class);
                 startActivity(intent);
             }
         });

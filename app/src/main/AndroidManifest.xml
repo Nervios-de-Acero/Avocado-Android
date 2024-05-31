@@ -59,6 +59,8 @@
             android:name=".ModificarPerfilActivity"
             android:exported="true" />
 
+        <activity android:name=".ContactoNoUserActivity"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

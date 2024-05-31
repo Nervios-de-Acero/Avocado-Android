@@ -17,7 +17,6 @@ public class ContactoActivity extends AppCompatActivity {
         //capturo los id de los botones
         ImageButton btnBack = findViewById(R.id.btn_volverInicio);
         ImageButton btnHome = findViewById(R.id.btn_home);
-        ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
         ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
@@ -26,7 +25,7 @@ public class ContactoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Crear un Intent para abrir FeedActivity
-                Intent intent = new Intent(ContactoActivity.this, InicioActivity.class);
+                Intent intent = new Intent(ContactoActivity.this, FeedActivity.class);
                 startActivity(intent);
             }
         });
