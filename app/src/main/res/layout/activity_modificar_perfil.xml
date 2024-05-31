@@ -337,20 +337,6 @@
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -385,20 +371,10 @@
             app:layout_constraintStart_toStartOf="parent" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar3"
-            android:layout_width="413dp"
+            android:layout_width="match_parent"
             android:layout_height="57dp"
             android:background="#B8E092"
             android:minHeight="?attr/actionBarSize"
@@ -416,8 +392,7 @@
                 android:backgroundTint="#00FFFFFF"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:outlineProvider="none"
-                tools:layout_editor_absoluteY="7dp">
+                android:outlineProvider="none">
 
                 <ImageButton
                     android:id="@+id/btn_home"
@@ -481,6 +456,5 @@
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
