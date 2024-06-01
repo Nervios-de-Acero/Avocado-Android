@@ -115,20 +115,19 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="466dp"
+        android:layout_height="500dp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
-        <GridLayout
+        <LinearLayout
             android:id="@+id/grid"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
 
             <TextView
@@ -145,16 +144,15 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:clipToPadding="false"
-                android:paddingLeft="35dp"
+                android:layout_gravity="center_horizontal"
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/receta_perfil_card" />
-        </GridLayout>
+        </LinearLayout>
 
 
     </ScrollView>
