@@ -312,34 +312,43 @@ router.post('/agregarReceta', checkSchema(validaciones), (req, res)=>{
             message: '',
             content: results[0]
           })
-        }
-        
-    })
+        }  
+      })
     })
     
-    // router.delete('/eliminarReceta/:id', (req, res) => {
-    //   const id = req.params.id
-    //   db.query(`DELETE FROM recetas WHERE idReceta = ${id}`,function(error, results){
-    //     if(error){
-    //       res.send({
-    //         success:false,
-    //         message: error
-    //       })
-    //     } else {
-    //       if(results.affectedRows === 0){
-    //         res.send({
-    //           success: false,
-    //           message: 'No hay recetas con ese ID'
-    //         })
-    //       } else {
-    //         res.send({
-    //           success: true,
-    //           message: 'Se eliminó la receta correctamente'
-    //         })
-    //       }
-    //     }
-    //   })
-    // })
+     router.delete('/eliminarReceta/:id', (req, res) => {
+       const id = req.params.id
+
+       try{
+        
+         db.query(`CALL sp_eliminarRecetaProducto(${id}, 'receta')`,(error, results) => {
+           if(error){
+             res.send({
+               success:false,
+               message: error.sqlMessage
+             })
+           } else {
+             if(results.affectedRows === 0){
+               res.send({
+                 success: false,
+                 message: 'No hay recetas con ese ID'
+               })
+             } else {
+               res.send({
+                 success: true,
+                 message: 'Se eliminó la receta correctamente'
+               })
+             }
+           }
+         });
+       } catch(e){
+
+        res.send({
+          success:false,
+          message: e
+        });
+       }
+     });
 
 //#endregion
 
