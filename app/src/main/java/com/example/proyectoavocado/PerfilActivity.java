@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.PerfilRecipeCardAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -235,12 +236,9 @@ public class PerfilActivity extends AppCompatActivity {
                     String usuario =  content.getString("usuario");
                     String imagen = content.getString("imagen");
 
-
-                    byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
-                    Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-                    if (decodedImage != null) {
+                    if (imagen != null) {
                         // Si no hay errores al decodificar, muestra la imagen
-                        imageViewPerfil.setImageBitmap(decodedImage);
+                        Picasso.get().load(imagen).into(imageViewPerfil);
                     } else {
                         // Si no se pudo crear el Bitmap, muestra una imagen de perfil por defecto
                         imageViewPerfil.setImageResource(R.drawable.icono_perfil);
