@@ -47,6 +47,7 @@ public class PerfilActivity extends AppCompatActivity {
     ImageView imageViewPerfil;
 
     ImageButton boton_menuDesplegable;
+    ImageButton btn_volver;
     SharedPreferences sharedPreferences;
 
     List<Receta> listaRecetasPerfil;
@@ -66,6 +67,7 @@ public class PerfilActivity extends AppCompatActivity {
         ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         Button btnEditar = findViewById(R.id.btn_editar);
+        btn_volver = findViewById(R.id.btn_volver);
 
         sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         String emailSp = sharedPreferences.getString("email", "");
@@ -79,6 +81,13 @@ public class PerfilActivity extends AppCompatActivity {
         imageViewPerfil = findViewById(R.id.imageViewPerfil);
         ImageView menuIcon = findViewById(R.id.menu_icon);
 
+        btn_volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PerfilActivity.this, FeedActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
