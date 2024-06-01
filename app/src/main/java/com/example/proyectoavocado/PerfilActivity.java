@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -243,6 +245,7 @@ public class PerfilActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     //Modificar el mensaje para personalizarlo (mensaje para logcat)
                     Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
+                    mostrarError(e.getMessage());
                     throw new RuntimeException("Error al traer los datos");
                 }
             }
@@ -250,6 +253,7 @@ public class PerfilActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String errorMessage = error.getMessage();
+                mostrarError(errorMessage);
                 if (errorMessage != null) {
                     Log.e("Error", errorMessage);
                 } else {
@@ -272,12 +276,13 @@ public class PerfilActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
 
-
                     JSONObject json = new JSONObject(response);
+                    Boolean success = json.getBoolean("success");
                     String message = json.getString("message");
                     JSONArray content = json.getJSONArray("content");
+                    Log.d("Contenido JSON", content.toString());
 
-                    if(content.length() == 0) {
+                    if(!success) {
                     // Imprimir "No tienes recetas en algún mensajito
                         recyclerPerfil.setVisibility(View.GONE);
                         noTienesRecetas.setVisibility(View.VISIBLE);
@@ -313,6 +318,7 @@ public class PerfilActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     //Modificar el mensaje para personalizarlo (mensaje para logcat)
                     Log.e("Error en la request", "Error al traer los datos: " + e.getMessage());
+                    mostrarError(e.getMessage());
                     throw new RuntimeException("Error al traer los datos");
                 }
             }
@@ -320,6 +326,7 @@ public class PerfilActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String errorMessage = error.getMessage();
+                mostrarError(errorMessage);
                 if (errorMessage != null) {
                     Log.e("Error", errorMessage);
                 } else {
@@ -328,5 +335,19 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
         Volley.newRequestQueue(this).add(post);
+    }
+
+    private void mostrarError(String mensaje) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PerfilActivity.this);
+        builder.setTitle("Error");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // No necesitas hacer nada específico al hacer clic en Aceptar
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
     }
 }

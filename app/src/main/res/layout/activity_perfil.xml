@@ -6,45 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".PerfilActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:background="#B8E092"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B8E092"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btn_backPerfil"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="boton para volver al perfil"
+                app:srcCompat="?attr/actionModeCloseDrawable" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="115dp"
+                android:layout_height="31dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_nombre" />
+
+            <View
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/menu_icon"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:backgroundTint="#00FFFFFF"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="Boton para abrir menu"
+                android:tint="#3C5B27"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_menu"
+                tools:ignore="UseAppTint,TouchTargetSizeCheck" />
 
 
-    <ImageButton
-        android:id="@+id/menu_icon"
-        android:layout_width="49dp"
-        android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
-        android:layout_toEndOf="@+id/imageView5"
-        android:backgroundTint="#00FFFFFF"
-        android:contentDescription="Boton para abrir menu"
-        android:tint="#3C5B27"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_menu"
-        tools:ignore="UseAppTint,TouchTargetSizeCheck" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="115dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_nombre" />
+        </androidx.appcompat.widget.Toolbar>
+
 
     <ImageView
         android:id="@+id/imageViewPerfil"

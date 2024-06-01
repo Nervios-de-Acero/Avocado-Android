@@ -290,40 +290,32 @@ router.post('/agregarReceta', checkSchema(validaciones), (req, res)=>{
   //   } )
   // })
 
-  // router.get('/getRecetasUsuario/:email', (req, res) => {
-  //   const email = req.params.email
-  //   if(!email){
-  //     res.status(400).json('Error. Email obligatorio.')
-  //     return
-  //   }
+  router.get('/getRecetasUsuario/:email', (req, res) => {
+    const email = req.params.email
+    if(!email){
+      res.status(400).json('Error. Email obligatorio.')
+      return
+    }
     
-  //   db.query(`CALL sp_getRecetasUsuario('${email}')`, function(error, results){
-  //     if(error){
-  //       res.send({
-  //         success: false,
-  //         message: error
-  //       })
-  //       return
-  //     }
-  //     else {
-  //       if(results[0]){
-  //         res.send({
-  //           success: true,
-  //           message: '',
-  //           content: results[0]
-  //         })
-  //         return
-  //       } else {
-  //         res.send({
-  //           success: true,
-  //           message: 'No tienes recetas',
-  //           content: []
-  //         })
-  //       }
+    db.query(`CALL sp_getRecetasUsuario('${email}')`, function(error, results){
+      if(error){
+        res.send({
+          success: false,
+          message: error.message,
+          content: []
+        })
+        return
+      }
+      else {
+          res.send({
+            success: true,
+            message: '',
+            content: results[0]
+          })
+        }
         
-  //     }
-  //   })
-  //   })
+    })
+    })
     
     // router.delete('/eliminarReceta/:id', (req, res) => {
     //   const id = req.params.id
