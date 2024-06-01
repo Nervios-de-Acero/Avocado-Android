@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectoavocado.R;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.VistaDetalladaActivity;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -53,13 +54,11 @@ public class PerfilRecipeCardAdapter extends RecyclerView.Adapter<PerfilRecipeCa
         holder.titulo_receta_perfil.setText(receta.getTitulo());
 
         // Cargar la imagen usando Picasso (o la biblioteca que prefieras)
-        //Picasso.get().load(receta.getImagen()).into(holder.img_receta);
+        //;
         String imagen = receta.getImagen();
         Log.d("IMAGEN RECETA", imagen);
         if(imagen != null && imagen != "null"){
-            byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
-            Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-            holder.img_receta.setImageBitmap(decodedImage);
+            Picasso.get().load(receta.getImagen()).into(holder.img_receta);
         }
         // Configurar el clic de la tarjeta
         holder.itemView.setOnClickListener(new View.OnClickListener() {
