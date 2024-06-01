@@ -255,7 +255,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
         builder.setView(dialogView);
 
-        EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
+        //EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
@@ -266,9 +266,9 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tituloPaso = editTextTituloPaso.getText().toString().trim();
+                //String tituloPaso = editTextTituloPaso.getText().toString().trim();!tituloPaso.isEmpty()
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-                if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
+                if (!descripcionPaso.isEmpty()) {
                     // Utiliza el constructor de Paso que solo toma titulo y descripcion
                     Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
                     pasosList.add(nuevoPaso);
