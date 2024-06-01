@@ -130,7 +130,7 @@ router.post('/agregarReceta', checkSchema(validaciones), (req, res)=>{
   
         res.send({
           success: false,
-          message: error
+          message: error.sqlMessage
         });
         return;
       } else {
