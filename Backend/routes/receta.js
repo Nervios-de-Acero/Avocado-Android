@@ -325,7 +325,7 @@ router.post('/agregarReceta', checkSchema(validaciones), (req, res)=>{
            if(error){
              res.send({
                success:false,
-               message: error
+               message: error.sqlMessage
              })
            } else {
              if(results.affectedRows === 0){
