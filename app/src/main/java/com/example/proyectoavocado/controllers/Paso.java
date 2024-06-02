@@ -6,7 +6,7 @@ public class Paso {
     private String titulo;
     private String descripcion;
 
-    public Paso(int idPaso, int idReceta, String titulo, String descripcion) {
+    public Paso(String titulo) {
         this.idPaso = idPaso;
         this.idReceta = idReceta;
         this.titulo = titulo;

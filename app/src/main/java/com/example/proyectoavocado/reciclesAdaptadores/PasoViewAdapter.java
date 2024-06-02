@@ -36,13 +36,13 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
         Paso paso = pasos.get(position);
-        holder.tituloPaso.setText("Paso " + paso.getIdPaso());
+        holder.tituloPaso.setText("Paso " + (position + 1)); // Establece el título del paso como "Paso X"
         holder.descripcionPaso.setText(paso.getDescripcion());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle item click events here if needed
+                // Maneja los eventos de clic en el elemento aquí si es necesario
             }
         });
     }

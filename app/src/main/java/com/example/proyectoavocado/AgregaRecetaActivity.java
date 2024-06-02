@@ -269,8 +269,13 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                 //String tituloPaso = editTextTituloPaso.getText().toString().trim();!tituloPaso.isEmpty()
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
                 if (!descripcionPaso.isEmpty()) {
-                    // Utiliza el constructor de Paso que solo toma titulo y descripcion
+                    // Obtiene el número de paso
+                    int numeroPaso = pasosList.size() + 1;
+                    // Establece el título del paso como "Paso X"
+                    String tituloPaso = "Paso " + numeroPaso;
+                    // Crea el objeto Paso con el título y la descripción
                     Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
+                    // Agrega el nuevo paso a la lista y notifica al adaptador
                     pasosList.add(nuevoPaso);
                     pasosAdapter.notifyDataSetChanged();
                     dialog.dismiss();

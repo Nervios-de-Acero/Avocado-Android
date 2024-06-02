@@ -38,7 +38,7 @@ public class PasosRecetaRecipeAdapter extends RecyclerView.Adapter<PasosRecetaRe
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
         Paso paso = pasos.get(position);
-        holder.tituloPaso.setText("Paso " + (position + 1));
+        holder.tituloPaso.setText("Paso " + (position + 1)); // Establece el título del paso como "Paso X"
         holder.descripcionPaso.setText(paso.getDescripcion());
 
         holder.eliminarButton.setOnClickListener(view -> {
