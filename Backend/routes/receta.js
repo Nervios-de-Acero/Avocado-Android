@@ -22,21 +22,29 @@ router.get('/getCategorias', (req, res)=> {
 })
 
 router.get('/getRecetasFeed', (req, res) => {
-  db.query(`SELECT  r.idReceta, r.titulo, u.usuario AS creadoPor, CONVERT(r.imagen USING utf8) AS imagen, r.fechaCreacion, r.descripcion, r.fechaActualizacion FROM recetas r INNER JOIN usuarios u ON u.idUsuario = r.creadoPor LIMIT 20;`, function(error, results){
-    if(error){
-      res.send({
-        success:false,
-        message: error
-      })
-    } else {
-      res.send({
-        success:true,
-        message: '',
-        content: results
-      })
-    }
-  })
-})
+  try{
+    db.query(`CALL sp_getRecetasFeed(NULL);`, (error, results) => {
+      if(error){
+        res.send({
+          success: false,
+          message: error.sqlMessage,
+        })
+      } else {
+        res.send({
+          success: true,
+          message: 'Recetas recibidas exitosamente',
+          content: results[0],
+        });
+      }
+    });
+  } catch(e){
+
+    res.send({
+      success: false,
+      message: e,
+    });
+  }
+});
 
 router.get('/buscarReceta/:titulo', (req, res)=> {
 const titulo = req.params.titulo
@@ -130,7 +138,7 @@ router.post('/agregarReceta', checkSchema(validaciones), (req, res)=>{
   
         res.send({
           success: false,
-          message: error
+          message: error.sqlMessage
         });
         return;
       } else {

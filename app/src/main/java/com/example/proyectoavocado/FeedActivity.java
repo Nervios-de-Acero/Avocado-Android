@@ -152,11 +152,12 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
             String titulo = jsonObject.getString("titulo");
             String creadoPor = jsonObject.getString("creadoPor");
             String descripcion = jsonObject.getString("descripcion");
+            String imagen = jsonObject.getString("imagen");
             // Puedes obtener otros campos de la receta de manera similar
             // ...
 
             // Crear objeto Receta y agregarlo a la lista
-            Receta receta = new Receta(idReceta, titulo, creadoPor, descripcion);
+            Receta receta = new Receta(idReceta, titulo, creadoPor, descripcion, imagen);
             listaRecetas.add(receta);
         }
         return listaRecetas;
