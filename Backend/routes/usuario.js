@@ -95,9 +95,10 @@ router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
 
       if(error){
 
+        console.log('as')
         res.send({
           success: false,
-          message: error,
+          message: error.sqlMessage,
         });
         
         return;
@@ -111,6 +112,7 @@ router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
             
             if(error){
 
+              console.log('ac')
               res.send({
                 success: false,
                 message: error,
@@ -159,7 +161,7 @@ router.delete('/eliminar', (req, res) => {
   
       if (error) {
   
-        res.send(error);
+        res.send(error.sqlMessage);
       }
       else {
   
