@@ -33,7 +33,7 @@ router.get('/getRecetasFeed', (req, res) => {
         res.send({
           success: true,
           message: 'Recetas recibidas exitosamente',
-          content: results,
+          content: results[0],
         });
       }
     });
