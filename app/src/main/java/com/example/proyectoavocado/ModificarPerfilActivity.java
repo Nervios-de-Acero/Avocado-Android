@@ -43,6 +43,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -416,12 +417,9 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                     String email =  content.getString("email");
                     String imagen = content.getString("imagen");
 
-
-                    byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
-                    Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-                    if (decodedImage != null) {
+                    if (imagen != null) {
                         // Si no hay errores al decodificar, muestra la imagen
-                        perfilImagen.setImageBitmap(decodedImage);
+                       Picasso.get().load(imagen).into(perfilImagen);
                     } else {
                         // Si no se pudo crear el Bitmap, muestra una imagen de perfil por defecto
                         perfilImagen.setImageResource(R.drawable.icono_perfil);

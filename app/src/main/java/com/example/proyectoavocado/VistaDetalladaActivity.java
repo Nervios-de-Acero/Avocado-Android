@@ -32,6 +32,7 @@ import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteViewAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasoViewAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -329,12 +330,10 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                     descripcionView.setText(descripcion);
                     tiempoCoccionView.setText(tiempoCoccion);
                     dificultadView.setText(dificultad);
-                    // Si la imagen no es null, entonces convertir
+
+                    recipeImage = findViewById(R.id.recipeImage);
                     if (!json.isNull("imagen") && !imagen.equals("null")) {
-                        recipeImage = findViewById(R.id.recipeImage);
-                        byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
-                        Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        recipeImage.setImageBitmap(decodedImage);
+                        Picasso.get().load(imagen).fit().centerInside().into(recipeImage);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
