@@ -263,7 +263,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
+        /*btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //String tituloPaso = editTextTituloPaso.getText().toString().trim();!tituloPaso.isEmpty()
@@ -275,6 +275,23 @@ public class AgregaRecetaActivity extends AppCompatActivity {
                     String tituloPaso = "Paso " + numeroPaso;
                     // Crea el objeto Paso con el título y la descripción
                     Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
+                    // Agrega el nuevo paso a la lista y notifica al adaptador
+                    pasosList.add(nuevoPaso);
+                    pasosAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                } else {
+                    // Muestra un mensaje de error si alguno de los campos está vacío
+                    Toast.makeText(AgregaRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });*/
+        btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
+                if (!descripcionPaso.isEmpty()) {
+                    // Crea el objeto Paso solo con la descripción
+                    Paso nuevoPaso = new Paso(descripcionPaso);
                     // Agrega el nuevo paso a la lista y notifica al adaptador
                     pasosList.add(nuevoPaso);
                     pasosAdapter.notifyDataSetChanged();
@@ -330,6 +347,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         String dificultad = editTextDificultad.getText().toString();
 
         // Obtener ingredientes y pasos como List<String>
+        List<String> categorias = new ArrayList<>();
         List<String> ingredientes = new ArrayList<>();
         for (Ingrediente ingrediente : ingredientesList) {
             ingredientes.add(ingrediente.getNombre());
@@ -355,6 +373,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             requestObject.put("dificultad", dificultad);
             requestObject.put("ingredientes", new JSONArray(ingredientes));
             requestObject.put("pasos", new JSONArray(pasos));
+            requestObject.put("categorias", new JSONArray());
             if(base64.equals("Sin imagen")){
                 requestObject.put("imagen", null);
             } else {

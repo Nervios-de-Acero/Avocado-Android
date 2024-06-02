@@ -254,7 +254,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                         recyclerIngrediente.setVisibility(View.GONE);
                     }
 
-                    if (!json.isNull("pasos")) {
+                    /*if (!json.isNull("pasos")) {
                         JSONArray pasosArray = json.getJSONArray("pasos");
                         pasosList = new ArrayList<>();
                         // Procesar pasos
@@ -272,6 +272,24 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                         recyclerPaso.setAdapter(pasoAdapter);
                     } else {
                         // Manejar el caso donde "pasos" es nulo o no es un JSONArray válido
+                        handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
+                        TextView sinPasos = findViewById(R.id.sinPasos);
+                        sinPasos.setVisibility(View.VISIBLE);
+                        recyclerPaso.setVisibility(View.GONE);
+                    }*/
+                    // Obtener y procesar el array de pasos
+                    if (!json.isNull("pasos")) {
+                        JSONArray pasosArray = json.getJSONArray("pasos");
+                        pasosList = new ArrayList<>();
+                        for (int i = 0; i < pasosArray.length(); i++) {
+                            JSONObject pasoJson = pasosArray.getJSONObject(i);
+                            String descripcionPaso = pasoJson.getString("descripcion");
+                            Paso paso = new Paso(descripcionPaso);
+                            pasosList.add(paso);
+                        }
+                        PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
+                        recyclerPaso.setAdapter(pasoAdapter);
+                    } else {
                         handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
                         TextView sinPasos = findViewById(R.id.sinPasos);
                         sinPasos.setVisibility(View.VISIBLE);

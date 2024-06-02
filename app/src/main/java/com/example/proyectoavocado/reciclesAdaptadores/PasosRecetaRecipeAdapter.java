@@ -60,7 +60,7 @@ public class PasosRecetaRecipeAdapter extends RecyclerView.Adapter<PasosRecetaRe
 
         PasoViewHolder(View itemView) {
             super(itemView);
-            tituloPaso = itemView.findViewById(R.id.titulo_pasoReceta);
+            tituloPaso = itemView.findViewById(R.id.titulo_paso);
             descripcionPaso = itemView.findViewById(R.id.descripcion_pasoReceta);
             eliminarButton = itemView.findViewById(R.id.btn_eliminarPaso);
         }
