@@ -102,31 +102,12 @@ router.get('/getProductos', (req, res)=> {
   })
 })
 
-router.post('/agregarReceta', checkSchema(validaciones), (req, res)=>{
-
-  if(typeof req.body.titulo == 'undefined' || typeof req.body.email == 'undefined' || typeof req.body.descripcion == 'undefined' || typeof req.body.imagen == 'undefined' || typeof req.body.ingredientes == 'undefined' || typeof req.body.pasos == 'undefined'){
-
-    res.status(400).json('Error: Campos incompletos');
-    return;
-  }
-
-  const resValidaciones = validationResult(req).array();
-
-  if(resValidaciones.length > 0){
-    
-    res.send({
-      success: false,
-      message: 'Campos inválidos',
-      content: resValidaciones
-    });
-    return;
-  }
+router.post('/agregarReceta', checkSchema(validaciones), funcionescomunes.validarJSON, (req, res)=>{
   
   const categorias = req.body.categorias ? req.body.categorias :  null;
   const tiempoCoccion =  req.body.tiempoCoccion ? req.body.tiempoCoccion :  null;
   const dificultad = req.body.dificultad ? req.body.dificultad :  null;
   
-
   try{
 
     db.query(`CALL sp_crearReceta('${req.body.email}', '${req.body.titulo}', '${tiempoCoccion}', '${dificultad}', '${req.body.descripcion}', '${req.body.imagen}', '${JSON.stringify(req.body.ingredientes)}', '${JSON.stringify(req.body.pasos)}', '${JSON.stringify(categorias)}');`, (error, results) => {
