@@ -463,9 +463,6 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Ninguna imagen seleccionada", Toast.LENGTH_SHORT).show();
             return "Sin imagen";
         }
-
     }
-
-
 }
 
