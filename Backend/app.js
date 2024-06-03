@@ -11,6 +11,8 @@ const logger = require('morgan');
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 const sql = require('../Backend/conection')
+const cloudinary = require('cloudinary').v2;
+
 require('dotenv').config()
 
 
@@ -110,8 +112,12 @@ app.use('/login', loginRouter)
 app.use('/logout', logoutRouter)
 app.use('/registro', registroRouter)
 
-
-
+//Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDNIARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 //Error
 app.use((err, req, res, next) => {

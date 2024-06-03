@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const { checkSchema, validationResult } = require('express-validator')
 const validaciones = require('../utils/validacionesPerfil')
 const validacionesPass = require('../utils/validacionesPassword')
+const funcionesCloudinary = require('../utils/cloudinaryFunctions')
 const funcionescomunes = require('../utils/funcionesComunes')
 
 router.get('/getUsuario/:email', (req, res) => {
@@ -153,6 +154,52 @@ router.delete('/eliminar', (req, res) => {
     return;
   }
 });
+
+router.post('/testCloudinarySubir', async (req, res) =>{
+
+  const imagePath = './assets/test.jpg';
+
+  const response = await funcionesCloudinary.subirImagen(imagePath);
+
+  if(response.exito){
+
+    res.status(201).send({
+      success: true,
+      message: "Imagen subida correctamente",
+    });
+  } else{
+
+    res.status(400).send({
+      success: false,
+      message: "Error al cargar la imagen",
+    });
+  }
+  
+  return;
+})
+
+router.get('/testCloudinaryAssetData', async (req, res) =>{
+
+  const publicId = 'test';
+
+  const response = await funcionesCloudinary.getAssetData(publicId);
+
+  if(response.exito){
+
+    res.status(201).send({
+      success: true,
+      message: "Datos traidos correctamente",
+    });
+  } else{
+
+    res.status(400).send({
+      success: false,
+      message: "Error al traer datos",
+    });
+  }
+  
+  return;
+})
 
 //#region Deshabilitados
 
