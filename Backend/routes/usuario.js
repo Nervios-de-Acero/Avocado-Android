@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const { checkSchema, validationResult } = require('express-validator')
 const validaciones = require('../utils/validacionesPerfil')
 const validacionesPass = require('../utils/validacionesPassword')
+const funcionescomunes = require('../utils/funcionesComunes')
 
 router.get('/getUsuario/:email', (req, res) => {
   db.query(`CALL sp_getUsuario(?)`, [req.params.email], function (error, results) {
@@ -28,25 +29,7 @@ router.get('/getUsuario/:email', (req, res) => {
   })
 })
 
-router.put('/actualizarPerfil', checkSchema(validaciones), (req, res) => {
-  const resValidaciones = validationResult(req).array(),
-        nombreCompleto = req.body.nombreCompleto || null,
-        usuario = req.body.usuario || null,
-        email = req.body.email;
-
-  if (!req.body.email) {
-    res.status(400).json('Email obligatorio')
-    return
-  }
-
-  if (resValidaciones.length > 0) {
-    res.send({
-      success: false,
-      message: 'Campos inválidos',
-      content: resValidaciones
-    })
-    return
-  }
+router.put('/actualizarPerfil', checkSchema(validaciones), funcionescomunes.validarJSON, (req, res) => {
 
   db.query(`CALL sp_actualizarPerfil(?, ?, NULL, ?, NULL);`, [email, nombreCompleto, usuario], function (error, results) {
     if (error) {
@@ -63,31 +46,9 @@ router.put('/actualizarPerfil', checkSchema(validaciones), (req, res) => {
     }
   })
 return
-})
+});
 
-router.put('/modificarPassword', checkSchema(validacionesPass), (req, res) =>{
-
-  const resValidaciones = validationResult(req).array();
-  const pass = req.body.password;
-  const nuevoPass = req.body.nuevoPassword;
-  const email = req.body.email;
-
-  if(!email || !pass || !nuevoPass){
-
-    res.status(400).json('Error. Faltan campos obligatorios');
-    return;
-  }
-
-  if(resValidaciones.length > 0){
-
-    res.send({
-      success: false,
-      message: 'Campos inválidos',
-      result: resValidaciones,
-    });
-
-    return;
-  }
+router.put('/modificarPassword', checkSchema(validacionesPass), funcionescomunes.validarJSON, (req, res) =>{
 
   try{
 

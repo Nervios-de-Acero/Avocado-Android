@@ -1,5 +1,9 @@
 const validaciones = {
   email: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'email' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
