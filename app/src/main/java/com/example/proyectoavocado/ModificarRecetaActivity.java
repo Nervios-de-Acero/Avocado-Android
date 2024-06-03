@@ -544,7 +544,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         for (Paso paso : nuevosPasos) {
             JSONObject pasoObject = new JSONObject();
             try {
-                pasoObject.put("titulo", paso.getTitulo());
+                // Enviar solo la descripción del paso
                 pasoObject.put("descripcion", paso.getDescripcion());
                 pasosArray.put(pasoObject);
             } catch (JSONException e) {

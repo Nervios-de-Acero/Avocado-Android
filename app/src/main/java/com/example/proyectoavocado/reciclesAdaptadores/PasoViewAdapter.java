@@ -17,7 +17,6 @@ import java.util.List;
 public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoViewHolder> {
     private List<Paso> pasos;
 
-
     public PasoViewAdapter(List<Paso> pasos) {
         this.pasos = pasos;
     }
@@ -29,22 +28,11 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
         return new PasoViewHolder(itemView);
     }
 
-    public List<Paso> getPaso() {
-        return pasos; // Suponiendo que pasosList sea la lista de pasos en tu adaptador
-    }
-
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
         Paso paso = pasos.get(position);
         holder.setTituloPaso("Paso " + (position + 1));
         holder.setDescripcionPaso(paso.getDescripcion());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Maneja los eventos de clic en el elemento aquí si es necesario
-            }
-        });
     }
 
     @Override
@@ -61,6 +49,7 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
             tituloPaso = itemView.findViewById(R.id.titulo_paso);
             descripcionPaso = itemView.findViewById(R.id.descripcion_paso);
         }
+
         public void setTituloPaso(String titulo) {
             tituloPaso.setText(titulo);
         }
