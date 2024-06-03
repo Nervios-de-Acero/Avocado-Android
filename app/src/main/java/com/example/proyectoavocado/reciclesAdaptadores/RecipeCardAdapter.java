@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.ViewHolder> {
@@ -51,20 +53,20 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Vi
             recetas.clear();
             recetas.addAll(listaOriginal);
         } else {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                List<Receta> collecion = recetas.stream()
-                        .filter(i -> i.getTitulo().toLowerCase().contains(searchView.toLowerCase()))
-                        .collect(Collectors.toList());
-                recetas.clear();
-                recetas.addAll(collecion);
-            } else {
-                for (Receta c : listaOriginal) {
-                    if (c.getTitulo().toLowerCase().contains(searchView.toLowerCase())) {
-                        recetas.add(c);
-                    }
+            List<Receta> filteredList = new ArrayList<>();
+            for (Receta receta : listaOriginal) {
+                if (receta.getTitulo().toLowerCase().contains(searchView.toLowerCase())) {
+                    filteredList.add(receta);
                 }
             }
+            recetas.clear();
+            recetas.addAll(filteredList);
         }
+
+        if (recetas.isEmpty()) {
+            Toast.makeText(context, "No se encontraron recetas", Toast.LENGTH_SHORT).show();
+        }
+
         notifyDataSetChanged();
     }
 
