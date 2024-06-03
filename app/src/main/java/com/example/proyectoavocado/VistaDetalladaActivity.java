@@ -6,17 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +23,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectoavocado.controllers.Ingrediente;
-import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteViewAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasoViewAdapter;
@@ -55,7 +49,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
     private RecyclerView recyclerIngrediente;
     private RecyclerView recyclerPaso;
     private ImageView recipeImage;
-    private List<Paso> pasosList;
+    private List<String> pasosList;
     private ImageButton btnMenuReceta;
 
     @Override
@@ -295,7 +289,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                         sinPasos.setVisibility(View.VISIBLE);
                         recyclerPaso.setVisibility(View.GONE);
                     }*/
-                    if (!json.isNull("pasos")) {
+                    /*if (!json.isNull("pasos")) {
                         JSONArray pasosArray = json.getJSONArray("pasos");
                         pasosList = new ArrayList<>();
                         for (int i = 0; i < pasosArray.length(); i++) {
@@ -305,6 +299,24 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                             Paso paso = new Paso(i + 1, "Paso " + (i + 1), descripcionPaso);
                             pasosList.add(paso);
                         }
+                        PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
+                        recyclerPaso.setAdapter(pasoAdapter);
+                    } else {
+                        handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
+                        TextView sinPasos = findViewById(R.id.sinPasos);
+                        sinPasos.setVisibility(View.VISIBLE);
+                        recyclerPaso.setVisibility(View.GONE);
+                    }*/
+                    // Obtener y procesar el array de pasos
+                    if (!json.isNull("pasos")) {
+                        JSONArray pasosArray = json.getJSONArray("pasos");
+                        pasosList = new ArrayList<String>();
+                        for (int i = 0; i < pasosArray.length(); i++) {
+                            String descripcionPaso = pasosArray.getString(i);
+                            // Agregar la descripción del paso a la lista de pasos
+                            pasosList.add(descripcionPaso);
+                        }
+                        // Configurar el adaptador de pasos y asignarlo al RecyclerView
                         PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
                         recyclerPaso.setAdapter(pasoAdapter);
                     } else {

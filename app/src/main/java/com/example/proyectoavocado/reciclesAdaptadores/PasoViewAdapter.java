@@ -15,9 +15,9 @@ import com.example.proyectoavocado.controllers.Paso;
 import java.util.List;
 
 public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoViewHolder> {
-    private List<Paso> pasos;
+    private List<String> pasos;
 
-    public PasoViewAdapter(List<Paso> pasos) {
+    public PasoViewAdapter(List<String> pasos) {
         this.pasos = pasos;
     }
 
@@ -30,9 +30,8 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
 
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
-        Paso paso = pasos.get(position);
-        holder.setTituloPaso("Paso " + (position + 1));
-        holder.setDescripcionPaso(paso.getDescripcion());
+        String descripcionPaso = pasos.get(position);
+        holder.setDescripcionPaso(descripcionPaso);
     }
 
     @Override
@@ -41,17 +40,11 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
     }
 
     static class PasoViewHolder extends RecyclerView.ViewHolder {
-        TextView tituloPaso;
         TextView descripcionPaso;
 
         PasoViewHolder(View itemView) {
             super(itemView);
-            tituloPaso = itemView.findViewById(R.id.titulo_paso);
             descripcionPaso = itemView.findViewById(R.id.descripcion_paso);
-        }
-
-        public void setTituloPaso(String titulo) {
-            tituloPaso.setText(titulo);
         }
 
         public void setDescripcionPaso(String descripcion) {

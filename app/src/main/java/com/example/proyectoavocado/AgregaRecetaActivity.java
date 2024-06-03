@@ -353,14 +353,11 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             ingredientes.add(ingrediente.getNombre());
         }
 
-        List<HashMap<String, String>> pasos = new ArrayList<>();
-
+        List<String> pasos = new ArrayList<>();
         for (Paso paso : pasosList) {
-            HashMap<String, String> obj = new HashMap<>();
-            obj.put("titulo", paso.getTitulo());
-            obj.put("descripcion", paso.getDescripcion());
-            pasos.add(obj);
+            pasos.add(paso.getDescripcion());
         }
+
         String base64 = convertirImagen(bitmap);
 
         // Crear el objeto JSON para la solicitud
