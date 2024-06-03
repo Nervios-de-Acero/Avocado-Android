@@ -46,9 +46,7 @@ import com.example.proyectoavocado.controllers.Ingrediente;
 import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteRecipeAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasosRecetaRecipeAdapter;
-import com.cloudinary.android.MediaManager;
-import com.cloudinary.android.callback.UploadCallback;
-import com.cloudinary.android.callback.ErrorInfo;
+
 
 
 import org.json.JSONArray;
@@ -456,7 +454,6 @@ public class AgregaRecetaActivity extends AppCompatActivity {
     private String convertirImagen(Bitmap bmp){
         //convertir imagen
         ByteArrayOutputStream baos;
-        byte[] bytes;
         baos = new ByteArrayOutputStream();
         if(bmp != null){
             //convertir bitmap a string
@@ -474,7 +471,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
 
 
     private void mostrarError(String mensaje) {
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegistrarseActivity.this);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AgregaRecetaActivity.this);
         builder.setTitle("Error");
         builder.setMessage(mensaje);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
