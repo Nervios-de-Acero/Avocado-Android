@@ -46,6 +46,9 @@ import com.example.proyectoavocado.controllers.Ingrediente;
 import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteRecipeAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasosRecetaRecipeAdapter;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.UploadCallback;
+import com.cloudinary.android.callback.ErrorInfo;
 
 
 import org.json.JSONArray;
@@ -213,6 +216,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             }
         });
     }
+
     private void mostrarDialogoIngredientes() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -452,6 +456,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
     private String convertirImagen(Bitmap bmp){
         //convertir imagen
         ByteArrayOutputStream baos;
+        byte[] bytes;
         baos = new ByteArrayOutputStream();
         if(bmp != null){
             //convertir bitmap a string
