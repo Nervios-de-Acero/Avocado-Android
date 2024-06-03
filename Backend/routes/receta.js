@@ -3,6 +3,7 @@ const router = express.Router()
 const db = require('../conection')
 const { checkSchema, validationResult } = require('express-validator')
 const validaciones = require('../utils/validacionesRecetas')
+const funcionescomunes = require('../utils/funcionesComunes')
 
 router.get('/getCategorias', (req, res)=> {
   db.query(`SELECT * FROM categorias;`,function(error, results){

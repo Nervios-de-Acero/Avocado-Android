@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const db = require('../conection')
 const { checkSchema, validationResult} = require('express-validator')
 const validaciones = require('../utils/validacionesRegistro')
+const funcionescomunes = require('../utils/funcionesComunes')
 
 router.post('/', checkSchema(validaciones), funcionescomunes.validarJSON, (req, res) => {
 

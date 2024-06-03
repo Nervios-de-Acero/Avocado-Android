@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const { checkSchema, validationResult } = require('express-validator')
 const validaciones = require('../utils/validacionesPerfil')
 const validacionesPass = require('../utils/validacionesPassword')
+const funcionescomunes = require('../utils/funcionesComunes')
 
 router.get('/getUsuario/:email', (req, res) => {
   db.query(`CALL sp_getUsuario(?)`, [req.params.email], function (error, results) {
