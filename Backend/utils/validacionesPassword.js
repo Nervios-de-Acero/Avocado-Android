@@ -1,5 +1,9 @@
 const validaciones = {
   email: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'email' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
@@ -9,12 +13,20 @@ const validaciones = {
     }
   },
   password: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'password' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
     }
   },
   nuevoPassword: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'nuevoPassword' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
