@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -467,5 +468,18 @@ public class AgregaRecetaActivity extends AppCompatActivity {
     }
 
 
+    private void mostrarError(String mensaje) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegistrarseActivity.this);
+        builder.setTitle("Error");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // No necesitas hacer nada específico al hacer clic en Aceptar
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
 }
 
