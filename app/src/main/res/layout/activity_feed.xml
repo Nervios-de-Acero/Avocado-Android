@@ -60,13 +60,6 @@
                     android:tint="#3C5B27"
                     app:srcCompat="@drawable/icon_menu"
                     tools:ignore="UseAppTint,TouchTargetSizeCheck" />
-
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="#B8E092"
-                    android:visibility="invisible" />
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -189,5 +182,14 @@
 
     </androidx.appcompat.widget.Toolbar>
     <!--Boton de Busqueda -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:background="#B8E092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
