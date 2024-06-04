@@ -6,17 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +23,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectoavocado.controllers.Ingrediente;
-import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteViewAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasoViewAdapter;
@@ -55,7 +49,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
     private RecyclerView recyclerIngrediente;
     private RecyclerView recyclerPaso;
     private ImageView recipeImage;
-    private List<Paso> pasosList;
+    private List<String> pasosList;
     private ImageButton btnMenuReceta;
 
     @Override
@@ -71,7 +65,6 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         btnMenuReceta = findViewById(R.id.btn_menu_receta);
-        ImageView menuIcon = findViewById(R.id.menu_icon);
 
         // Instanciar las variables de la interfaz de usuario
         tituloReceta = findViewById(R.id.tituloReceta);
@@ -151,14 +144,6 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                 showPopupMenu(view);
             }
         });
-
-        // Establece un OnClickListener para el icono de menú
-        menuIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupMenu(v);
-            }
-        });
     }
 
     @SuppressLint("ResourceType")
@@ -193,43 +178,6 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         builder.setView(customMenuView);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                // Maneja las acciones correspondientes a cada ítem del menú
-                switch (item.getItemId()) {
-                    case 1:
-                        startActivity(new Intent(VistaDetalladaActivity.this, ContactoActivity.class));
-                        return true;
-                    case 2:
-                        startActivity(new Intent(VistaDetalladaActivity.this, AcercaActivity.class));
-                        return true;
-                    case 3:
-                        // Aquí maneja el cierre de sesión
-                        SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.clear();
-                        editor.apply();
-
-                        Intent intent = new Intent(VistaDetalladaActivity.this, InicioActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
-
-        // Agrega las opciones del menú programáticamente
-        popupMenu.getMenu().add(0, 1, 0, "Contacto");
-        popupMenu.getMenu().add(0, 2, 0, "Acerca de");
-        popupMenu.getMenu().add(0, 3, 0, "Cerrar Sesión");
-
-        // Muestra el menú emergente
-        popupMenu.show();
     }
 
     public class RecetasUsuarioRequest {
@@ -300,24 +248,19 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                         recyclerIngrediente.setVisibility(View.GONE);
                     }
 
+                    // Obtener y procesar el array de pasos
                     if (!json.isNull("pasos")) {
                         JSONArray pasosArray = json.getJSONArray("pasos");
-                        pasosList = new ArrayList<>();
-                        // Procesar pasos
+                        pasosList = new ArrayList<String>();
                         for (int i = 0; i < pasosArray.length(); i++) {
-                            JSONObject pasoJson = pasosArray.getJSONObject(i);
-                            if (pasoJson.has("titulo") && pasoJson.has("descripcion")) {
-                                int idPaso = i + 1;
-                                String tituloPaso = pasoJson.getString("titulo");
-                                String descripcionPaso = pasoJson.getString("descripcion");
-                                Paso paso = new Paso(idPaso, tituloPaso, descripcionPaso);
-                                pasosList.add(paso);
-                            }
+                            String descripcionPaso = pasosArray.getString(i);
+                            // Agregar la descripción del paso a la lista de pasos
+                            pasosList.add(descripcionPaso);
                         }
+                        // Configurar el adaptador de pasos y asignarlo al RecyclerView
                         PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
                         recyclerPaso.setAdapter(pasoAdapter);
                     } else {
-                        // Manejar el caso donde "pasos" es nulo o no es un JSONArray válido
                         handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
                         TextView sinPasos = findViewById(R.id.sinPasos);
                         sinPasos.setVisibility(View.VISIBLE);

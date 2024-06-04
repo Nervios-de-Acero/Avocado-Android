@@ -124,13 +124,13 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
                     List<Receta> listaRecetas = parsearRespuesta(response);
                     setupRecyclerView(listaRecetas);
                 } catch (JSONException e) {
-                    handleError("Error al parsear los datos: " + e.getMessage());
+                    Log.e("Error al parsear los datos: ", e.getMessage().toString());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                handleError("Error en la solicitud: " + error.getMessage());
+                Log.e("Error en la solicitud: ", error.getMessage().toString());
             }
         });
         Volley.newRequestQueue(this).add(get);
