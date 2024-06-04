@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
@@ -26,11 +23,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectoavocado.controllers.Ingrediente;
-import com.example.proyectoavocado.controllers.Paso;
 import com.example.proyectoavocado.controllers.Receta;
 import com.example.proyectoavocado.reciclesAdaptadores.IngredienteViewAdapter;
 import com.example.proyectoavocado.reciclesAdaptadores.PasoViewAdapter;
-import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +49,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
     private RecyclerView recyclerIngrediente;
     private RecyclerView recyclerPaso;
     private ImageView recipeImage;
-    private List<Paso> pasosList;
+    private List<String> pasosList;
     private ImageButton btnMenuReceta;
 
     @Override
@@ -66,7 +62,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscarReceta = findViewById(R.id.btn_buscar);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
-        ImageButton btnFavoritos = findViewById(R.id.btn_favoritos);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
         ImageButton btnPerfil = findViewById(R.id.btn_perfil);
         btnMenuReceta = findViewById(R.id.btn_menu_receta);
 
@@ -124,11 +120,11 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             }
         });
 
-        btnFavoritos.setOnClickListener(new View.OnClickListener() {
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(VistaDetalladaActivity.this, favoritesActivity.class);
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(VistaDetalladaActivity.this, WebRedirectActivity.class);
                 startActivity(intent);
             }
         });
@@ -252,24 +248,19 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                         recyclerIngrediente.setVisibility(View.GONE);
                     }
 
+                    // Obtener y procesar el array de pasos
                     if (!json.isNull("pasos")) {
                         JSONArray pasosArray = json.getJSONArray("pasos");
-                        pasosList = new ArrayList<>();
-                        // Procesar pasos
+                        pasosList = new ArrayList<String>();
                         for (int i = 0; i < pasosArray.length(); i++) {
-                            JSONObject pasoJson = pasosArray.getJSONObject(i);
-                            if (pasoJson.has("titulo") && pasoJson.has("descripcion")) {
-                                int idPaso = i + 1;
-                                String tituloPaso = pasoJson.getString("titulo");
-                                String descripcionPaso = pasoJson.getString("descripcion");
-                                Paso paso = new Paso(idPaso, tituloPaso, descripcionPaso);
-                                pasosList.add(paso);
-                            }
+                            String descripcionPaso = pasosArray.getString(i);
+                            // Agregar la descripción del paso a la lista de pasos
+                            pasosList.add(descripcionPaso);
                         }
+                        // Configurar el adaptador de pasos y asignarlo al RecyclerView
                         PasoViewAdapter pasoAdapter = new PasoViewAdapter(pasosList);
                         recyclerPaso.setAdapter(pasoAdapter);
                     } else {
-                        // Manejar el caso donde "pasos" es nulo o no es un JSONArray válido
                         handleError("El campo 'pasos' en la respuesta es nulo o no es un JSONArray válido.");
                         TextView sinPasos = findViewById(R.id.sinPasos);
                         sinPasos.setVisibility(View.VISIBLE);
@@ -282,12 +273,10 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                     descripcionView.setText(descripcion);
                     tiempoCoccionView.setText(tiempoCoccion);
                     dificultadView.setText(dificultad);
-                    // Si la imagen no es null, entonces convertir
+
+                    recipeImage = findViewById(R.id.recipeImage);
                     if (!json.isNull("imagen") && !imagen.equals("null")) {
-                        recipeImage = findViewById(R.id.recipeImage);
-                        byte[] decodedString = Base64.decode(imagen, Base64.DEFAULT);
-                        Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        recipeImage.setImageBitmap(decodedImage);
+                        Picasso.get().load(imagen).fit().centerInside().into(recipeImage);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

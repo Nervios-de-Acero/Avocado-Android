@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contacto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactoActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#B8E092"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_volverInicio"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="Botón de volver al Feed"
+            app:srcCompat="?attr/homeAsUpIndicator" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="115dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/logo_nombre" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="168dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar7"
+        app:srcCompat="@drawable/logo_palta"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/roboto"
+        android:text="¿En qué podemos ayudarte?"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etAsunto"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto"
+        android:hint="Deja aquí tu asunto"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:ignore="MissingConstraints" />
+
+
+    <EditText
+        android:id="@+id/etComentario"
+        android:layout_width="266dp"
+        android:layout_height="134dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:gravity="start|top"
+        android:hint="Coméntanos tu problema"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAsunto"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_enviar"
+        android:layout_width="168dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#B8E092"
+        android:fontFamily="@font/roboto"
+        android:text="Enviar"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        app:cornerRadius="5dp"
+        app:iconPadding="2dp"
+        app:iconSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etComentario"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

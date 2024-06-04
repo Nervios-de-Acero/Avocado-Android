@@ -67,7 +67,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
     private IngredienteRecipeAdapter ingredienteAdapter;
     private PasosRecetaRecipeAdapter pasosAdapter;
     private List<Ingrediente> ingredientesList;
-    private List<Paso> pasosList;
+    private List<String> pasosList;
 
     private String emailUsuario;
 
@@ -255,7 +255,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
         builder.setView(dialogView);
 
-        EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
+        //EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
@@ -263,15 +263,35 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+        /*btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String tituloPaso = editTextTituloPaso.getText().toString().trim();!tituloPaso.isEmpty()
+                String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
+                if (!descripcionPaso.isEmpty()) {
+                    // Obtiene el número de paso
+                    int numeroPaso = pasosList.size() + 1;
+                    // Establece el título del paso como "Paso X"
+                    String tituloPaso = "Paso " + numeroPaso;
+                    // Crea el objeto Paso con el título y la descripción
+                    Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
+                    // Agrega el nuevo paso a la lista y notifica al adaptador
+                    pasosList.add(nuevoPaso);
+                    pasosAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                } else {
+                    // Muestra un mensaje de error si alguno de los campos está vacío
+                    Toast.makeText(AgregaRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });*/
         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tituloPaso = editTextTituloPaso.getText().toString().trim();
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-                if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
-                    // Utiliza el constructor de Paso que solo toma titulo y descripcion
-                    Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
-                    pasosList.add(nuevoPaso);
+                if (!descripcionPaso.isEmpty()) {
+                    // Agrega la descripción del paso a la lista
+                    pasosList.add(descripcionPaso);
                     pasosAdapter.notifyDataSetChanged();
                     dialog.dismiss();
                 } else {
@@ -325,19 +345,17 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         String dificultad = editTextDificultad.getText().toString();
 
         // Obtener ingredientes y pasos como List<String>
+        List<String> categorias = new ArrayList<>();
         List<String> ingredientes = new ArrayList<>();
         for (Ingrediente ingrediente : ingredientesList) {
             ingredientes.add(ingrediente.getNombre());
         }
 
-        List<HashMap<String, String>> pasos = new ArrayList<>();
-
-        for (Paso paso : pasosList) {
-            HashMap<String, String> obj = new HashMap<>();
-            obj.put("titulo", paso.getTitulo());
-            obj.put("descripcion", paso.getDescripcion());
-            pasos.add(obj);
+        List<String> pasos = new ArrayList<>();
+        for (String paso : pasosList) {
+            pasos.add(paso);
         }
+
         String base64 = convertirImagen(bitmap);
 
         // Crear el objeto JSON para la solicitud
@@ -350,6 +368,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             requestObject.put("dificultad", dificultad);
             requestObject.put("ingredientes", new JSONArray(ingredientes));
             requestObject.put("pasos", new JSONArray(pasos));
+            requestObject.put("categorias", new JSONArray());
             if(base64.equals("Sin imagen")){
                 requestObject.put("imagen", null);
             } else {
@@ -463,9 +482,6 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Ninguna imagen seleccionada", Toast.LENGTH_SHORT).show();
             return "Sin imagen";
         }
-
     }
-
-
 }
 

@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".WebRedirectActivity"
+            android:exported="true" />
+        <activity
             android:name=".AcercaActivity"
             android:exported="true" />
         <activity
@@ -24,6 +27,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -46,9 +50,6 @@
             android:name=".FeedActivity"
             android:exported="true" />
         <activity
-            android:name=".favoritesActivity"
-            android:exported="true" />
-        <activity
             android:name=".PerfilActivity"
             android:exported="true" />
         <activity
@@ -57,6 +58,8 @@
         <activity
             android:name=".ModificarPerfilActivity"
             android:exported="true" />
+
+        <activity android:name=".ContactoNoUserActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,5 +1,9 @@
 const validaciones = {
   titulo: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'titulo' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
@@ -14,6 +18,10 @@ const validaciones = {
     }
   },
   email: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'email' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
@@ -23,18 +31,30 @@ const validaciones = {
     }
   },
   descripcion: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'descripcion' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
     } 
   },
   imagen: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'imagen' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
     }
   },
   pasos: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'pasos' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true
@@ -71,6 +91,10 @@ const validaciones = {
     }
   },
   ingredientes: {
+    exists: {
+      errorMessage: "Formato inválido. Parámetro 'ingredientes' requerido.",
+      bail: true
+    },
     notEmpty: {
       errorMessage: 'Campo obligatorio',
       bail: true

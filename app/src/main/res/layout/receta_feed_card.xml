@@ -8,8 +8,8 @@
     android:layout_margin="10dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_width="369dp"
+        android:layout_height="296dp"
         android:layout_margin="10dp"
         app:cardBackgroundColor="#FDFFEB"
         app:cardCornerRadius="10dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="380dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -35,8 +35,8 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
                     android:contentDescription="Icono de Persona"
-                    android:src="@drawable/persona_icono"
-                    android:tint="#000000"
+                    android:src="@drawable/icon_user"
+                    android:tint="#03A9F4"
                     tools:ignore="UseAppTint" />
 
                 <TextView
@@ -55,7 +55,7 @@
             <!-- Fila 2 -->
             <ImageView
                 android:id="@+id/imagen_comida"
-                android:layout_width="match_parent"
+                android:layout_width="359dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
@@ -67,7 +67,7 @@
             <!-- Fila 3 -->
             <TextView
                 android:id="@+id/titulo_receta"
-                android:layout_width="match_parent"
+                android:layout_width="349dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -81,7 +81,7 @@
             <!-- Fila 4 -->
             <TextView
                 android:id="@+id/descripcion_receta"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -92,15 +92,6 @@
                 android:textSize="15sp" />
 
             <!-- Fila 5 -->
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="5dp"
-                android:contentDescription="Icono de Estrella"
-                android:src="@drawable/estrella_icono"
-                android:tint="#000000"
-                tools:ignore="UseAppTint" />
 
         </LinearLayout>
 

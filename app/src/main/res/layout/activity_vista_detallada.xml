@@ -57,7 +57,6 @@
             tools:ignore="HardcodedText,MissingConstraints"
             tools:layout_editor_absoluteY="6dp" />
 
-
         <ImageButton
             android:id="@+id/btn_menu_receta"
             android:layout_width="50dp"
@@ -92,7 +91,7 @@
       <ImageView
           android:id="@+id/recipeImage"
           android:layout_width="match_parent"
-          android:layout_height="124dp"
+          android:layout_height="wrap_content"
           android:adjustViewBounds="true"
           android:contentDescription="Imagen de comida"
           android:scaleType="centerCrop"
@@ -274,28 +273,6 @@
         </LinearLayout>
       </LinearLayout>
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tituloCategoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Categorías"
-            android:textColor="#3C5B27"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:ignore="DuplicateIds" />
-
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="50dp"
-          android:orientation="horizontal"/>
     </LinearLayout>
 
   </ScrollView>
@@ -334,7 +311,7 @@
           android:gravity="center"
           app:layout_constraintBottom_toTopOf="@+id/toolbar3"
           app:layout_constraintStart_toStartOf="parent"
-          app:srcCompat="@drawable/home_icono" />
+          app:srcCompat="@drawable/icon_home" />
 
       <ImageButton
           android:id="@+id/btn_buscar"
@@ -343,10 +320,10 @@
           android:layout_weight="1"
           android:backgroundTint="#00FFFFFF"
           android:contentDescription="Buscar"
-          android:tint="@color/white"
+          android:tint="#002E53"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@+id/toolbar3"
-          app:srcCompat="@drawable/lupa_icono"
+          app:srcCompat="@drawable/icon_buscar"
           tools:ignore="UseAppTint" />
 
       <ImageButton
@@ -356,24 +333,21 @@
           android:layout_weight="1"
           android:backgroundTint="#00FFFFFF"
           android:contentDescription="Agregar Receta"
-          android:tint="@color/white"
+          android:tint="#035707"
           app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-          app:srcCompat="@drawable/mas_icono"
-          tools:ignore="UseAppTint"
-          tools:layout_editor_absoluteX="128dp" />
+          app:srcCompat="@drawable/icon_a_adir"
+          tools:ignore="UseAppTint" />
 
       <ImageButton
-          android:id="@+id/btn_favoritos"
+          android:id="@+id/btn_suscripcion"
           android:layout_width="50dp"
           android:layout_height="match_parent"
           android:layout_weight="1"
           android:backgroundTint="#00FFFFFF"
           android:contentDescription="Favoritos"
-          android:tint="@color/white"
-          app:srcCompat="@drawable/estrella_icono"
-          tools:ignore="UseAppTint"
-          tools:layout_editor_absoluteX="269dp"
-          tools:layout_editor_absoluteY="680dp" />
+          android:tint="#6A25E4"
+          app:srcCompat="@drawable/icon_carrito"
+          tools:ignore="UseAppTint" />
 
       <ImageButton
           android:id="@+id/btn_perfil"
@@ -383,11 +357,9 @@
           android:background="#00FFFFFF"
           android:backgroundTint="#00FFFFFF"
           android:contentDescription="Perfil"
-          android:tint="@color/white"
-          app:srcCompat="@drawable/persona_icono"
-          tools:ignore="UseAppTint"
-          tools:layout_editor_absoluteX="330dp"
-          tools:layout_editor_absoluteY="678dp" />
+          android:tint="#7EB3DD"
+          app:srcCompat="@drawable/icon_user"
+          tools:ignore="UseAppTint" />
     </LinearLayout>
   </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,106 +6,160 @@
     android:layout_height="match_parent"
     tools:context=".PerfilActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="409dp"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B8E092"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btn_volver"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="boton para volver al perfil"
+                app:srcCompat="?attr/actionModeCloseDrawable" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="115dp"
+                android:layout_height="31dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_nombre" />
+
+            <View
+                android:layout_width="170dp"
+                android:layout_height="60dp"
+                android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/menu_icon"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:backgroundTint="#00FFFFFF"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="Boton para abrir menu"
+                android:tint="#3C5B27"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_menu"
+                tools:ignore="UseAppTint,TouchTargetSizeCheck" />
+
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:background="#B8E092"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+
+        <ImageView
+            android:id="@+id/imageViewPerfil"
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icono_perfil" />
+
+        <TextView
+            android:id="@+id/text_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="96dp"
+            android:editable="false"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="4dp"
+            android:text="Nombre y Apellido"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_nombreusuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="96dp"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="4dp"
+            android:text="nombreUsuario"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_nombre" />
+
+        <Button
+            android:id="@+id/btn_editar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#02FFFFFF"
+            android:text="Editar"
+            android:textAlignment="viewEnd"
+            android:textColor="#070707"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="#B8E092"
+            app:strokeWidth="2dp" />
 
 
-    <ImageButton
-        android:id="@+id/boton_menuDesplegable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#00FFFFFF"
-        android:contentDescription="Boton para abrir menu"
-        android:tint="#3C5B27"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
-        app:layout_constraintHorizontal_bias="0.995"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_sort_by_size"
-        tools:ignore="UseAppTint" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="115dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_nombre" />
-
-    <ImageView
-        android:id="@+id/imageViewPerfil"
-        android:layout_width="80dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="74dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icono_perfil" />
-
-    <TextView
-        android:id="@+id/text_nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="119dp"
-        android:layout_marginTop="92dp"
-        android:editable="false"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Nombre y Apellido"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_nombreusuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="119dp"
-        android:layout_marginTop="114dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="nombreUsuario"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_editar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="#02FFFFFF"
-        android:text="Editar"
-        android:textAlignment="viewEnd"
-        android:textColor="#070707"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#B8E092"
-        app:strokeWidth="2dp" />
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="675dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
+        <LinearLayout
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/noTienesRecetas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="No tienes recetas."
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/receta_perfil_card" />
+        </LinearLayout>
+
+
+    </ScrollView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
-        android:layout_width="413dp"
+        android:layout_width="match_parent"
         android:layout_height="57dp"
         android:background="#B8E092"
         android:minHeight="?attr/actionBarSize"
@@ -124,6 +178,8 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:outlineProvider="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="7dp">
 
             <ImageButton
@@ -136,7 +192,7 @@
                 android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/toolbar3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/home_icono" />
+                app:srcCompat="@drawable/icon_home" />
 
             <ImageButton
                 android:id="@+id/btn_buscar"
@@ -145,10 +201,10 @@
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Buscar"
-                android:tint="@color/white"
+                android:tint="#002E53"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/toolbar3"
-                app:srcCompat="@drawable/lupa_icono"
+                app:srcCompat="@drawable/icon_buscar"
                 tools:ignore="UseAppTint" />
 
             <ImageButton
@@ -158,24 +214,21 @@
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Agregar Receta"
-                android:tint="@color/white"
+                android:tint="#035707"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-                app:srcCompat="@drawable/mas_icono"
-                tools:ignore="UseAppTint"
-                tools:layout_editor_absoluteX="128dp" />
+                app:srcCompat="@drawable/icon_a_adir"
+                tools:ignore="UseAppTint" />
 
             <ImageButton
-                android:id="@+id/btn_favoritos"
+                android:id="@+id/btn_suscripcion"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Favoritos"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/estrella_icono"
-                tools:ignore="UseAppTint"
-                tools:layout_editor_absoluteX="269dp"
-                tools:layout_editor_absoluteY="680dp" />
+                android:tint="#6A25E4"
+                app:srcCompat="@drawable/icon_carrito"
+                tools:ignore="UseAppTint" />
 
             <ImageButton
                 android:id="@+id/btn_perfil"
@@ -185,61 +238,12 @@
                 android:background="#00FFFFFF"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="Perfil"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/persona_icono"
-                tools:ignore="UseAppTint"
-                tools:layout_editor_absoluteX="330dp"
-                tools:layout_editor_absoluteY="678dp" />
-
+                android:tint="#7EB3DD"
+                app:srcCompat="@drawable/icon_user"
+                tools:ignore="UseAppTint" />
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="466dp"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="0.921">
-
-        <GridLayout
-            android:id="@+id/grid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp">
-
-            <TextView
-                android:id="@+id/noTienesRecetas"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="No tienes recetas."
-                android:layout_gravity="center"
-                android:textSize="20sp"
-                android:visibility="gone"
-                />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:clipToPadding="false"
-                android:paddingLeft="35dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/receta_perfil_card" />
-        </GridLayout>
-
-
-    </ScrollView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
