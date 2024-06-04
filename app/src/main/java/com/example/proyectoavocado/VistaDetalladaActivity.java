@@ -92,6 +92,7 @@ public class VistaDetalladaActivity extends AppCompatActivity {
             // Finalizar la actividad actual si no hay un ID de receta para validar
             finish();
         }
+        Log.d("ID_RECETA", "ID de receta recibido: " + recetaIdEspecifica);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,8 +162,18 @@ public class VistaDetalladaActivity extends AppCompatActivity {
                 // Abre la actividad de edición (ModificarRecetaActivity)
                 Intent intentEditar = new Intent(VistaDetalladaActivity.this, ModificarRecetaActivity.class);
                 // Pasa el ID de la receta a la actividad de edición si es necesario
+                recetaIdEspecifica = getIntent().getIntExtra("receta_id", -1);
+                if (recetaIdEspecifica != -1) {
+                    obtenerDetallesReceta(recetaIdEspecifica);
+                } else {
+                    // Manejar el caso cuando no se proporciona el ID de la receta
+                    handleError("ID de receta no proporcionado");
+                    // Finalizar la actividad actual si no hay un ID de receta para validar
+                    finish();
+                }
                 intentEditar.putExtra("receta_id", recetaIdEspecifica);
                 startActivity(intentEditar);
+                Log.d("ID_RECETA", "ID de receta recibido: " + recetaIdEspecifica);
             }
         });
 

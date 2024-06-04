@@ -1,5 +1,6 @@
 package com.example.proyectoavocado.controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.io.Serializable;
 import java.util.List;
@@ -16,18 +17,14 @@ public class Receta implements Serializable {
     private Date fechaActualizacion;
     private List<String> categorias;
     private List<Ingrediente> ingredientes;
-    private List<Paso> pasos;
-
-
-
+    private List<String> pasos;
 
     // Constructor vacío necesario para deserialización
     public Receta() {
     }
 
-
-    // Constructor
-    public Receta(Integer idReceta, String titulo, String imagen,String descripcion, String creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion, List<Paso> pasos, List<String> categorias, List<Ingrediente> ingredientes) {
+    // Constructor completo
+    public Receta(Integer idReceta, String titulo, String imagen, String descripcion, String creadoPor, String tiempoCoccion, String dificultad, Date fechaCreacion, Date fechaActualizacion, List<String> pasos, List<String> categorias, List<Ingrediente> ingredientes) {
         this.idReceta = idReceta;
         this.titulo = titulo;
         this.imagen = imagen;
@@ -42,32 +39,35 @@ public class Receta implements Serializable {
         this.ingredientes = ingredientes;
     }
 
-    public Receta(Integer idReceta, String nombre, String imagen) {
-        this.titulo = nombre;
-        this.imagen = imagen;
-        this.idReceta = idReceta;
-
-    }
-
     public Receta(Integer idReceta, String titulo, String creadoPor, String descripcion, String imagen) {
         this.idReceta = idReceta;
         this.titulo = titulo;
-        this.creadoPor = creadoPor;
-        this.descripcion = descripcion;
         this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.creadoPor = creadoPor;
     }
 
-    public Receta(Integer idReceta, String titulo, String descripcion, String tiempoCoccion, String dificultad, List<Ingrediente> ingredientes, List<Paso> pasos) {
+    public Receta(Integer idReceta, String titulo, String descripcion, String tiempoCoccion, String dificultad, List<Ingrediente> ingredientes, List<String> pasos) {
         this.idReceta = idReceta;
         this.titulo = titulo;
         this.descripcion = descripcion;
+        this.creadoPor = creadoPor;
         this.tiempoCoccion = tiempoCoccion;
         this.dificultad = dificultad;
         this.pasos = pasos;
         this.ingredientes = ingredientes;
     }
 
-    // Getter y Setter para el id
+    public Receta(int idReceta, String titulo, String imagen) {
+        this.idReceta = idReceta;
+        this.titulo = titulo;
+        this.imagen = imagen;
+    }
+
+
+    // Otros constructores aquí...
+
+    // Métodos Getter y Setter
     public Integer getIdReceta() {
         return idReceta;
     }
@@ -76,8 +76,6 @@ public class Receta implements Serializable {
         this.idReceta = idReceta;
     }
 
-
-    // Getter y Setter para el nombre
     public String getTitulo() {
         return titulo;
     }
@@ -86,7 +84,6 @@ public class Receta implements Serializable {
         this.titulo = titulo;
     }
 
-    // Getter y Setter para la imagen
     public String getImagen() {
         return imagen;
     }
@@ -95,8 +92,6 @@ public class Receta implements Serializable {
         this.imagen = imagen;
     }
 
-
-    // Getter y Setter para la descripcion
     public String getDescripcion() {
         return descripcion;
     }
@@ -105,7 +100,6 @@ public class Receta implements Serializable {
         this.descripcion = descripcion;
     }
 
-    // Getter y Setter para creadoPor
     public String getCreadoPor() {
         return creadoPor;
     }
@@ -114,7 +108,6 @@ public class Receta implements Serializable {
         this.creadoPor = creadoPor;
     }
 
-    // Getter y Setter para tiempoCoccion
     public String getTiempoCoccion() {
         return tiempoCoccion;
     }
@@ -123,7 +116,6 @@ public class Receta implements Serializable {
         this.tiempoCoccion = tiempoCoccion;
     }
 
-    // Getter y Setter para la dificultad
     public String getDificultad() {
         return dificultad;
     }
@@ -132,7 +124,6 @@ public class Receta implements Serializable {
         this.dificultad = dificultad;
     }
 
-    // Getter y Setter para fechaCreacion
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -141,7 +132,6 @@ public class Receta implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    // Getter y Setter para fechaActualizacion
     public Date getFechaActualizacion() {
         return fechaActualizacion;
     }
@@ -150,16 +140,14 @@ public class Receta implements Serializable {
         this.fechaActualizacion = fechaActualizacion;
     }
 
-    // Getter y Setter para pasos
-    public List<Paso> getPasos() {
+    public List<String> getPasos() {
         return pasos;
     }
 
-    public void setPasos(List<Paso> pasos) {
+    public void setPasos(List<String> pasos) {
         this.pasos = pasos;
     }
 
-    // Getter y Setter para categorias
     public List<String> getCategorias() {
         return categorias;
     }
@@ -168,8 +156,6 @@ public class Receta implements Serializable {
         this.categorias = categorias;
     }
 
-
-    // Getter y Setter para ingredientes
     public List<Ingrediente> getIngredientes() {
         return ingredientes;
     }
@@ -178,21 +164,21 @@ public class Receta implements Serializable {
         this.ingredientes = ingredientes;
     }
 
+    @Override
     public String toString() {
         return "Receta{" +
-                "id=" + idReceta +
+                "idReceta=" + idReceta +
                 ", titulo='" + titulo + '\'' +
                 ", imagen='" + imagen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", creadoPor='" + creadoPor + '\'' +
                 ", tiempoCoccion='" + tiempoCoccion + '\'' +
                 ", dificultad='" + dificultad + '\'' +
-                ", fechaCreacion='" + fechaCreacion + '\'' +
-                ", fechaActualizacion='" + fechaActualizacion + '\'' +
-                ", ingredientes=" + ingredientes +  '\'' +
-                ", pasos=" + pasos +  '\'' +
-                ", categorias=" + categorias +  '\'' +
-                ", ingredientes=" + ingredientes +  '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", fechaActualizacion=" + fechaActualizacion +
+                ", categorias=" + categorias +
+                ", ingredientes=" + ingredientes +
+                ", pasos=" + pasos +
                 '}';
     }
 }

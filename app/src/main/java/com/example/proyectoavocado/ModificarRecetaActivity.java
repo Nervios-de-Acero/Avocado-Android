@@ -67,6 +67,10 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         btnEditarTitulo = findViewById(R.id.btn_edit_tituloReceta);
         btnEditarDescripcionTiempoDificultad = findViewById(R.id.btn_editar_descripcion_coccion_dificultad);
         ImageButton btn_backFeed = findViewById(R.id.btn_backFeed);
+        ImageButton btnHome = findViewById(R.id.btn_home);
+        ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
+        ImageButton btnSuscripcion = findViewById(R.id.btn_suscripcion);
+        ImageButton btnPerfil = findViewById(R.id.btn_perfil);
 
         // Inicializa las listas
         ingredientesList = new ArrayList<>();
@@ -164,12 +168,12 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 String nuevaDificultad = dificultadReceta.getText().toString();
 
                 List<Ingrediente> nuevosIngredientes = ingredienteAdapter.getIngredientes();
-                //List<Paso> nuevosPasos = pasosAdapter.getPasos();
+                List<String> nuevosPasos = pasosAdapter.getPasos();
 
                 modificarTituloReceta(recetaIdEspecifica, nuevoTitulo);
                 modificarDescripcionDificultadTiempo(recetaIdEspecifica, nuevaDescripcion, nuevoTiempo, nuevaDificultad);
                 modificarIngredientes(recetaIdEspecifica, nuevosIngredientes);
-                //modificarPasos(recetaIdEspecifica, nuevosPasos);
+                modificarPasos(recetaIdEspecifica, nuevosPasos);
 
                 // Realizar acciones adicionales después de guardar los cambios
 
@@ -183,6 +187,42 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Crear un Intent para abrir PerfilActivity
                 Intent intent = new Intent(ModificarRecetaActivity.this, FeedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir FeedActivity
+                Intent intent = new Intent(ModificarRecetaActivity.this, FeedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnAgregarReceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir AgregarRecetaActivity
+                Intent intent = new Intent(ModificarRecetaActivity.this, AgregaRecetaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSuscripcion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir WebRedirectActivity
+                Intent intent = new Intent(ModificarRecetaActivity.this, WebRedirectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir PerfilActivity
+                Intent intent = new Intent(ModificarRecetaActivity.this, PerfilActivity.class);
                 startActivity(intent);
             }
         });
@@ -340,7 +380,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String email = getEmailUsuarioLogueado(); // Obtén el email del usuario logueado desde SharedPreferences
 
-        String url = "http://" + pc_ip + ":3000/usuario/getUsuario/" + email;
+        String url = "http://" + pc_ip + ":3000/receta/getRecetaById/" + recetaIdEspecifica;
 
         StringRequest get = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -377,10 +417,9 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         ingredientesList.addAll(receta.getIngredientes());
         ingredienteAdapter.notifyDataSetChanged();
 
-        // Carga los pasos en el RecyclerView de pasos
-        for (Paso paso : receta.getPasos()) {
-            pasosList.add(paso.getDescripcion());
-        }
+        // Carga las descripciones de los pasos en el RecyclerView de pasos
+        List<String> pasosStrings = receta.getPasos();
+        pasosList.addAll(pasosStrings);
         pasosAdapter.notifyDataSetChanged();
     }
 
@@ -405,15 +444,12 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         }
         return pasos;
     }*/
-    private List<Paso> obtenerListaDePasos(JSONArray jsonArray) throws JSONException {
-        List<Paso> pasos = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject pasoJson = jsonArray.getJSONObject(i);
-            String descripcion = pasoJson.getString("descripcion");
-            Paso paso = new Paso(descripcion);
-            pasos.add(paso);
+    private JSONArray obtenerListaDePasos(List<String> pasos) throws JSONException {
+        JSONArray pasosArray = new JSONArray();
+        for (String paso : pasos) {
+            pasosArray.put(paso);
         }
-        return pasos;
+        return pasosArray;
     }
 
     private Receta parsearRespuestaReceta(String response) throws JSONException {
@@ -428,8 +464,8 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         // Obtén la lista de ingredientes como lista de objetos Ingrediente
         List<Ingrediente> ingredientes = obtenerListaDeIngredientes(jsonObject.getJSONArray("ingredientes"));
 
-        // Obtén la lista de pasos como lista de objetos Paso
-        List<Paso> pasos = obtenerListaDePasos(jsonObject.getJSONArray("pasos"));
+        // Obtén la lista de pasos como lista de cadenas
+        List<String> pasos = obtenerListaDeCadenas(jsonObject.getJSONArray("pasos"));
 
         // Crea y devuelve el objeto Receta
         return new Receta(idReceta, titulo, descripcion, tiempoCoccion, dificultad, ingredientes, pasos);
@@ -557,7 +593,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     }
 
     // Método para modificar los pasos de la receta
-    private void modificarPasos(int idReceta, List<Paso> nuevosPasos) {
+    /*private void modificarPasos(int idReceta, List<Paso> nuevosPasos) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/modificarPasos?_method=PUT";
 
@@ -594,6 +630,74 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Manejar errores de la solicitud si es necesario
+                    }
+                });
+
+        // Añade la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(this).add(request);
+    }*/
+    /*private void modificarPasos(int idReceta, List<String> nuevosPasos) {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/receta/modificarPasos?_method=PUT";
+
+        // Crea el cuerpo de la solicitud en formato JSON
+        JSONArray pasosArray = new JSONArray(nuevosPasos);
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("idReceta", idReceta);
+            requestBody.put("pasos", pasosArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Crea la solicitud POST
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Manejar la respuesta del servidor si es necesario
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud si es necesario
+                    }
+                });
+
+        // Añade la solicitud a la cola de solicitudes de Volley
+        Volley.newRequestQueue(this).add(request);
+    }*/
+    private void modificarPasos(int idReceta, List<String> nuevosPasos) {
+        String pc_ip = getResources().getString(R.string.pc_ip);
+        String url = "http://" + pc_ip + ":3000/receta/modificarPasos";
+
+        // Crea el cuerpo de la solicitud en formato JSON
+        JSONArray pasosArray = new JSONArray(nuevosPasos);
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("idReceta", idReceta);
+            requestBody.put("pasos", pasosArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Crea la solicitud PUT
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Manejar la respuesta del servidor si es necesario
+                        Log.d("Response", "Response from server: " + response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Manejar errores de la solicitud si es necesario
+                        Log.e("Error", "Error in request: " + error.toString());
                     }
                 });
 
