@@ -31,6 +31,7 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
         String descripcionPaso = pasos.get(position);
+        holder.tituloPaso.setText("Paso " + (position + 1)); // Establece el título del paso como "Paso X"
         holder.setDescripcionPaso(descripcionPaso);
     }
 
@@ -40,10 +41,12 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
     }
 
     static class PasoViewHolder extends RecyclerView.ViewHolder {
+        TextView tituloPaso;
         TextView descripcionPaso;
 
         PasoViewHolder(View itemView) {
             super(itemView);
+            tituloPaso = itemView.findViewById(R.id.titulo_paso);
             descripcionPaso = itemView.findViewById(R.id.descripcion_paso);
         }
 

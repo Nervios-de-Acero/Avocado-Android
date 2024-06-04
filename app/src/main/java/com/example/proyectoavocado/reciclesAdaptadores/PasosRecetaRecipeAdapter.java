@@ -16,14 +16,14 @@ import com.example.proyectoavocado.controllers.Paso;
 import java.util.List;
 
 public class PasosRecetaRecipeAdapter extends RecyclerView.Adapter<PasosRecetaRecipeAdapter.PasoViewHolder> {
-    private List<Paso> pasos;
+    private List<String> pasos;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onDeleteClick(int position);
     }
 
-    public PasosRecetaRecipeAdapter(List<Paso> pasos, OnItemClickListener listener) {
+    public PasosRecetaRecipeAdapter(List<String> pasos, OnItemClickListener listener) {
         this.pasos = pasos;
         this.listener = listener;
     }
@@ -37,9 +37,9 @@ public class PasosRecetaRecipeAdapter extends RecyclerView.Adapter<PasosRecetaRe
 
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
-        Paso paso = pasos.get(position);
+        String descripcionPaso = pasos.get(position);
         holder.tituloPaso.setText("Paso " + (position + 1)); // Establece el título del paso como "Paso X"
-        holder.descripcionPaso.setText(paso.getDescripcion());
+        holder.descripcionPaso.setText(descripcionPaso);
 
         holder.eliminarButton.setOnClickListener(view -> {
             if (listener != null) {

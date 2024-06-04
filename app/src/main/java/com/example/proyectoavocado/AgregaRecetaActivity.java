@@ -67,7 +67,7 @@ public class AgregaRecetaActivity extends AppCompatActivity {
     private IngredienteRecipeAdapter ingredienteAdapter;
     private PasosRecetaRecipeAdapter pasosAdapter;
     private List<Ingrediente> ingredientesList;
-    private List<Paso> pasosList;
+    private List<String> pasosList;
 
     private String emailUsuario;
 
@@ -290,10 +290,8 @@ public class AgregaRecetaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
                 if (!descripcionPaso.isEmpty()) {
-                    // Crea el objeto Paso solo con la descripción
-                    Paso nuevoPaso = new Paso(descripcionPaso);
-                    // Agrega el nuevo paso a la lista y notifica al adaptador
-                    pasosList.add(nuevoPaso);
+                    // Agrega la descripción del paso a la lista
+                    pasosList.add(descripcionPaso);
                     pasosAdapter.notifyDataSetChanged();
                     dialog.dismiss();
                 } else {
@@ -354,8 +352,8 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         }
 
         List<String> pasos = new ArrayList<>();
-        for (Paso paso : pasosList) {
-            pasos.add(paso.getDescripcion());
+        for (String paso : pasosList) {
+            pasos.add(paso);
         }
 
         String base64 = convertirImagen(bitmap);

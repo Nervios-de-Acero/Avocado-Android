@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,7 +42,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     private IngredienteRecipeAdapter ingredienteAdapter;
     private PasosRecetaRecipeAdapter pasosAdapter;
     private List<Ingrediente> ingredientesList;
-    private List<Paso> pasosList;
+    private List<String> pasosList;
     private Integer recetaIdEspecifica;
 
     private EditText tituloReceta;
@@ -65,6 +66,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         dificultadReceta = findViewById(R.id.dificultad_receta);
         btnEditarTitulo = findViewById(R.id.btn_edit_tituloReceta);
         btnEditarDescripcionTiempoDificultad = findViewById(R.id.btn_editar_descripcion_coccion_dificultad);
+        ImageButton btn_backFeed = findViewById(R.id.btn_backFeed);
 
         // Inicializa las listas
         ingredientesList = new ArrayList<>();
@@ -82,8 +84,12 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             // Finaliza la actividad actual si no hay un ID de receta para validar
             finish();
         }
-
+        Log.d("ID_RECETA", "ID de receta recibido: " + recetaIdEspecifica);
         obtenerDetallesReceta();
+
+        // Inicializar RecyclerView
+        recyclerViewIngredientes = findViewById(R.id.recycler_ingredientes);
+        recyclerViewPasos = findViewById(R.id.recycler_pasos);
 
         // Configura el adaptador de ingredientes
         ingredienteAdapter = new IngredienteRecipeAdapter(ingredientesList, new IngredienteRecipeAdapter.OnItemClickListener() {
@@ -93,6 +99,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 ingredienteAdapter.notifyDataSetChanged();
             }
         });
+
         recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewIngredientes.setAdapter(ingredienteAdapter);
 
@@ -104,6 +111,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 pasosAdapter.notifyDataSetChanged();
             }
         });
+
         recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPasos.setAdapter(pasosAdapter);
 
@@ -146,7 +154,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
 
         // Botón para guardar los cambios en la receta
-        Button btnGuardarCambios = findViewById(R.id.btn_aceptar);
+        ImageButton btnGuardarCambios = findViewById(R.id.btn_aceptar);
         btnGuardarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +175,15 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
                 // Finalizar la actividad después de guardar los cambios si es necesario
                 finish();
+            }
+        });
+
+        btn_backFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir PerfilActivity
+                Intent intent = new Intent(ModificarRecetaActivity.this, FeedActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -291,10 +308,13 @@ public class ModificarRecetaActivity extends AppCompatActivity {
            public void onClick(View v) {
                String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
                if (!descripcionPaso.isEmpty()) {
-                   // Agrega la descripción del paso a la lista y actualiza el adaptador
-                   Paso nuevoPaso = new Paso(descripcionPaso); // Solo necesitas la descripción
-                   pasosList.add(nuevoPaso);
+                   // Agrega la descripción del paso a la lista
+                   pasosList.add(descripcionPaso);
+
+                   // Notifica al adaptador que los datos han cambiado
                    pasosAdapter.notifyDataSetChanged();
+
+                   // Cierra el diálogo
                    dialog.dismiss();
                } else {
                    // Muestra un mensaje de error si el campo está vacío
@@ -358,7 +378,9 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         ingredienteAdapter.notifyDataSetChanged();
 
         // Carga los pasos en el RecyclerView de pasos
-        pasosList.addAll(receta.getPasos());
+        for (Paso paso : receta.getPasos()) {
+            pasosList.add(paso.getDescripcion());
+        }
         pasosAdapter.notifyDataSetChanged();
     }
 
