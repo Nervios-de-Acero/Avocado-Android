@@ -42,7 +42,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     private IngredienteRecipeAdapter ingredienteAdapter;
     private PasosRecetaRecipeAdapter pasosAdapter;
     private List<Ingrediente> ingredientesList;
-    private List<Paso> pasosList;
+    private List<String> pasosList;
     private Integer recetaIdEspecifica;
 
     private EditText tituloReceta;
@@ -99,6 +99,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 ingredienteAdapter.notifyDataSetChanged();
             }
         });
+
         recyclerViewIngredientes.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewIngredientes.setAdapter(ingredienteAdapter);
 
@@ -110,6 +111,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 pasosAdapter.notifyDataSetChanged();
             }
         });
+
         recyclerViewPasos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPasos.setAdapter(pasosAdapter);
 
@@ -232,13 +234,52 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
     }
 
+    /* private void mostrarDialogoPasos() {
+         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         LayoutInflater inflater = getLayoutInflater();
+         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
+         builder.setView(dialogView);
+
+         //EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
+         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
+         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
+         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
+
+         AlertDialog dialog = builder.create();
+         dialog.show();
+
+
+         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 //String tituloPaso = editTextTituloPaso.getText().toString().trim();
+                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
+                 if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
+                     // Agrega el paso a la lista y actualiza el adaptador
+                     Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
+                     pasosList.add(nuevoPaso);
+                     pasosAdapter.notifyDataSetChanged();
+                     dialog.dismiss();
+                 } else {
+                     // Muestra un mensaje de error si alguno de los campos está vacío
+                     Toast.makeText(ModificarRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
+                 }
+             }
+         });
+
+         btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 dialog.dismiss();
+             }
+         });
+     }*/
     private void mostrarDialogoPasos() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
         builder.setView(dialogView);
 
-        EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
@@ -246,21 +287,38 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-
+       /*btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
+               if (!descripcionPaso.isEmpty()) {
+                   // Agrega la descripción del paso a la lista y actualiza el adaptador
+                   Paso nuevoPaso = new Paso(descripcion); // Solo necesitas la descripción
+                   pasosList.add(nuevoPaso);
+                   pasosAdapter.notifyDataSetChanged();
+                   dialog.dismiss();
+               } else {
+                   // Muestra un mensaje de error si el campo está vacío
+                   Toast.makeText(ModificarRecetaActivity.this, "Por favor, ingresa la descripción del paso", Toast.LENGTH_SHORT).show();
+               }
+           }
+       });*/
         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tituloPaso = editTextTituloPaso.getText().toString().trim();
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-                if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
-                    // Agrega el paso a la lista y actualiza el adaptador
-                    Paso nuevoPaso = new Paso(descripcionPaso);
-                    pasosList.add(nuevoPaso);
+                if (!descripcionPaso.isEmpty()) {
+                    // Agrega la descripción del paso a la lista
+                    pasosList.add(descripcionPaso);
+
+                    // Notifica al adaptador que los datos han cambiado
                     pasosAdapter.notifyDataSetChanged();
+
+                    // Cierra el diálogo
                     dialog.dismiss();
                 } else {
-                    // Muestra un mensaje de error si alguno de los campos está vacío
-                    Toast.makeText(ModificarRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
+                    // Muestra un mensaje de error si el campo está vacío
+                    Toast.makeText(ModificarRecetaActivity.this, "Por favor, ingresa la descripción del paso", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -320,7 +378,9 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         ingredienteAdapter.notifyDataSetChanged();
 
         // Carga los pasos en el RecyclerView de pasos
-        pasosList.addAll(receta.getPasos());
+        for (Paso paso : receta.getPasos()) {
+            pasosList.add(paso.getDescripcion());
+        }
         pasosAdapter.notifyDataSetChanged();
     }
 
@@ -506,7 +566,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         for (Paso paso : nuevosPasos) {
             JSONObject pasoObject = new JSONObject();
             try {
-                pasoObject.put("titulo", paso.getTitulo());
+                // Enviar solo la descripción del paso
                 pasoObject.put("descripcion", paso.getDescripcion());
                 pasosArray.put(pasoObject);
             } catch (JSONException e) {
@@ -541,4 +601,3 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
 }
-

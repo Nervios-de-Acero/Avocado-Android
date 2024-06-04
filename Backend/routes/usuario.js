@@ -31,7 +31,10 @@ router.get('/getUsuario/:email', (req, res) => {
 })
 
 router.put('/actualizarPerfil', checkSchema(validaciones), funcionescomunes.validarJSON, (req, res) => {
-
+  const email = req.body.email,
+        nombreCompleto = req.body.nombreCompleto,
+        usuario = req.body.usuario
+  
   db.query(`CALL sp_actualizarPerfil(?, ?, NULL, ?, NULL);`, [email, nombreCompleto, usuario], function (error, results) {
     if (error) {
       res.status(error.errno === 1644 ? 200 : 500).json({
