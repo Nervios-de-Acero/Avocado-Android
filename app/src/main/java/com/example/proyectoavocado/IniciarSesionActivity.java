@@ -105,6 +105,10 @@ public class IniciarSesionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         //capturo los id de los botones
         ImageButton btnVolver = findViewById(R.id.btn_volver);
         Button btnIniciarSesion = findViewById(R.id.btn_iniciarsesion);

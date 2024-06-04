@@ -57,6 +57,10 @@ public class VistaDetalladaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_detallada);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         //capturo los id de los botones
         ImageButton btnBack = findViewById(R.id.btn_backFeed);
         ImageButton btnHome = findViewById(R.id.btn_home);
