@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="#B8E092">
 
     <LinearLayout
-        android:layout_width="375dp"
-        android:layout_height="373dp"
+        android:layout_width="360dp"
+        android:layout_height="441dp"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,13 +16,12 @@
 
         <ImageButton
             android:id="@+id/btn_close_dialogPaso"
-            android:layout_width="63dp"
-            android:layout_height="56dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="end"
             android:layout_margin="10dp"
             android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/x_icon"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:srcCompat="@drawable/x_icon" />
 
         <TextView
             android:id="@+id/textView7"
@@ -35,6 +33,26 @@
             android:text="Paso de Preparación"
             android:textColor="#3C5B27"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/subtitulo_paso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="10dp"
+            android:text="Paso"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/text_tituloPaso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="#fff"
+            android:hint="Título del Paso"
+            android:padding="5dp" />
 
         <TextView
             android:id="@+id/subtitulo_pasoDescripcion"
@@ -50,7 +68,7 @@
         <EditText
             android:id="@+id/text_descripcionPaso"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:background="#fff"

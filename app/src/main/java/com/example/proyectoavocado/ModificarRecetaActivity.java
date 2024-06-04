@@ -234,58 +234,58 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
     }
 
-   /* private void mostrarDialogoPasos() {
+    /* private void mostrarDialogoPasos() {
+         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         LayoutInflater inflater = getLayoutInflater();
+         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
+         builder.setView(dialogView);
+
+         //EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
+         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
+         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
+         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
+
+         AlertDialog dialog = builder.create();
+         dialog.show();
+
+
+         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 //String tituloPaso = editTextTituloPaso.getText().toString().trim();
+                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
+                 if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
+                     // Agrega el paso a la lista y actualiza el adaptador
+                     Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
+                     pasosList.add(nuevoPaso);
+                     pasosAdapter.notifyDataSetChanged();
+                     dialog.dismiss();
+                 } else {
+                     // Muestra un mensaje de error si alguno de los campos está vacío
+                     Toast.makeText(ModificarRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
+                 }
+             }
+         });
+
+         btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 dialog.dismiss();
+             }
+         });
+     }*/
+    private void mostrarDialogoPasos() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
         builder.setView(dialogView);
 
-        //EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
-
-        btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //String tituloPaso = editTextTituloPaso.getText().toString().trim();
-                String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-                if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
-                    // Agrega el paso a la lista y actualiza el adaptador
-                    Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
-                    pasosList.add(nuevoPaso);
-                    pasosAdapter.notifyDataSetChanged();
-                    dialog.dismiss();
-                } else {
-                    // Muestra un mensaje de error si alguno de los campos está vacío
-                    Toast.makeText(ModificarRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }*/
-   private void mostrarDialogoPasos() {
-       AlertDialog.Builder builder = new AlertDialog.Builder(this);
-       LayoutInflater inflater = getLayoutInflater();
-       View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
-       builder.setView(dialogView);
-
-       EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
-       Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
-       ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
-
-       AlertDialog dialog = builder.create();
-       dialog.show();
 
        /*btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -303,33 +303,33 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                }
            }
        });*/
-       btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-               if (!descripcionPaso.isEmpty()) {
-                   // Agrega la descripción del paso a la lista
-                   pasosList.add(descripcionPaso);
+        btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
+                if (!descripcionPaso.isEmpty()) {
+                    // Agrega la descripción del paso a la lista
+                    pasosList.add(descripcionPaso);
 
-                   // Notifica al adaptador que los datos han cambiado
-                   pasosAdapter.notifyDataSetChanged();
+                    // Notifica al adaptador que los datos han cambiado
+                    pasosAdapter.notifyDataSetChanged();
 
-                   // Cierra el diálogo
-                   dialog.dismiss();
-               } else {
-                   // Muestra un mensaje de error si el campo está vacío
-                   Toast.makeText(ModificarRecetaActivity.this, "Por favor, ingresa la descripción del paso", Toast.LENGTH_SHORT).show();
-               }
-           }
-       });
+                    // Cierra el diálogo
+                    dialog.dismiss();
+                } else {
+                    // Muestra un mensaje de error si el campo está vacío
+                    Toast.makeText(ModificarRecetaActivity.this, "Por favor, ingresa la descripción del paso", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-       btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               dialog.dismiss();
-           }
-       });
-   }
+        btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
 
     private String getEmailUsuarioLogueado() {
         SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
@@ -601,4 +601,3 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
 }
-

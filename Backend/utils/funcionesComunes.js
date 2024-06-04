@@ -1,4 +1,4 @@
-const {validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
 const funciones = {};
 
 //#region Funciones
@@ -12,19 +12,15 @@ const funciones = {};
  */
 funciones.validarJSON = (req, res, next) => {
     const resValidaciones = validationResult(req).array()
-    
-    if(resValidaciones.length > 0){
-        funciones.manejoRespuestas(res, {
-            errors: {
-                message: "Error de validación",
-                content: resValidaciones
-            },
-            meta: {
-                status: 400,
-            },
+
+    if (resValidaciones.length > 0) {
+        res.status(400).json({
+            success: false,
+            message: "Error de validación",
+            content: resValidaciones
         });
-        
-        return; 
+
+        return;
     }
 
     next();
