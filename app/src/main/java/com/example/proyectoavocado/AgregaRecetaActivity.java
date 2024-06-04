@@ -83,6 +83,10 @@ public class AgregaRecetaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agrega_receta);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         // Inicializa los componentes
         ImageButton btnBack = findViewById(R.id.btn_back);
         editTextTitulo = findViewById(R.id.text_title);

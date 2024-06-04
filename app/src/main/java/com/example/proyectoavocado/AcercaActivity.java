@@ -14,6 +14,10 @@ public class AcercaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acerca);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         ImageButton btnVolverPerfil = findViewById(R.id.btn_volverPerfil);
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnBuscar = findViewById(R.id.btn_buscar);

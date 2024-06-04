@@ -58,6 +58,10 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar_receta);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         // Inicializar vistas y obtener correo electrónico del usuario
         // Inicializar vistas
         tituloReceta = findViewById(R.id.titulo_receta);
