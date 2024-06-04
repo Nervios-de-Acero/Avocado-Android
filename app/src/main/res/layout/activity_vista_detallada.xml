@@ -75,7 +75,6 @@
             tools:ignore="HardcodedText,MissingConstraints"
             tools:layout_editor_absoluteY="6dp" />
 
-
         <ImageButton
             android:id="@+id/btn_menu_receta"
             android:layout_width="50dp"

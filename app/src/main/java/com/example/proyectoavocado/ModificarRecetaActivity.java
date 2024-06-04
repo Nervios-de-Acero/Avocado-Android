@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +66,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         dificultadReceta = findViewById(R.id.dificultad_receta);
         btnEditarTitulo = findViewById(R.id.btn_edit_tituloReceta);
         btnEditarDescripcionTiempoDificultad = findViewById(R.id.btn_editar_descripcion_coccion_dificultad);
+        ImageButton btn_backFeed = findViewById(R.id.btn_backFeed);
 
         // Inicializa las listas
         ingredientesList = new ArrayList<>();
@@ -82,8 +84,12 @@ public class ModificarRecetaActivity extends AppCompatActivity {
             // Finaliza la actividad actual si no hay un ID de receta para validar
             finish();
         }
-
+        Log.d("ID_RECETA", "ID de receta recibido: " + recetaIdEspecifica);
         obtenerDetallesReceta();
+
+        // Inicializar RecyclerView
+        recyclerViewIngredientes = findViewById(R.id.recycler_ingredientes);
+        recyclerViewPasos = findViewById(R.id.recycler_pasos);
 
         // Configura el adaptador de ingredientes
         ingredienteAdapter = new IngredienteRecipeAdapter(ingredientesList, new IngredienteRecipeAdapter.OnItemClickListener() {
@@ -146,7 +152,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
 
         // Botón para guardar los cambios en la receta
-        Button btnGuardarCambios = findViewById(R.id.btn_aceptar);
+        ImageButton btnGuardarCambios = findViewById(R.id.btn_aceptar);
         btnGuardarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +173,15 @@ public class ModificarRecetaActivity extends AppCompatActivity {
 
                 // Finalizar la actividad después de guardar los cambios si es necesario
                 finish();
+            }
+        });
+
+        btn_backFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Crear un Intent para abrir PerfilActivity
+                Intent intent = new Intent(ModificarRecetaActivity.this, FeedActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -239,7 +254,7 @@ public class ModificarRecetaActivity extends AppCompatActivity {
                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
                 if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
                     // Agrega el paso a la lista y actualiza el adaptador
-                    Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
+                    Paso nuevoPaso = new Paso(descripcionPaso);
                     pasosList.add(nuevoPaso);
                     pasosAdapter.notifyDataSetChanged();
                     dialog.dismiss();
@@ -319,13 +334,23 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         return ingredientes;
     }
 
-    private List<Paso> obtenerListaDePasos(JSONArray jsonArray) throws JSONException {
+    /* private List<Paso> obtenerListaDePasos(JSONArray jsonArray) throws JSONException {
         List<Paso> pasos = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject pasoJson = jsonArray.getJSONObject(i);
             String titulo = pasoJson.getString("titulo");
             String descripcion = pasoJson.getString("descripcion");
             Paso paso = new Paso(titulo, descripcion);
+            pasos.add(paso);
+        }
+        return pasos;
+    }*/
+    private List<Paso> obtenerListaDePasos(JSONArray jsonArray) throws JSONException {
+        List<Paso> pasos = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject pasoJson = jsonArray.getJSONObject(i);
+            String descripcion = pasoJson.getString("descripcion");
+            Paso paso = new Paso(descripcion);
             pasos.add(paso);
         }
         return pasos;

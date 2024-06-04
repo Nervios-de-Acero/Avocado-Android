@@ -15,10 +15,9 @@ import com.example.proyectoavocado.controllers.Paso;
 import java.util.List;
 
 public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoViewHolder> {
-    private List<Paso> pasos;
+    private List<String> pasos;
 
-
-    public PasoViewAdapter(List<Paso> pasos) {
+    public PasoViewAdapter(List<String> pasos) {
         this.pasos = pasos;
     }
 
@@ -29,22 +28,11 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
         return new PasoViewHolder(itemView);
     }
 
-    public List<Paso> getPaso() {
-        return pasos; // Suponiendo que pasosList sea la lista de pasos en tu adaptador
-    }
-
     @Override
     public void onBindViewHolder(@NonNull PasoViewHolder holder, int position) {
-        Paso paso = pasos.get(position);
-        holder.tituloPaso.setText("Paso " + paso.getIdPaso());
-        holder.descripcionPaso.setText(paso.getDescripcion());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle item click events here if needed
-            }
-        });
+        String descripcionPaso = pasos.get(position);
+        holder.tituloPaso.setText("Paso " + (position + 1)); // Establece el título del paso como "Paso X"
+        holder.setDescripcionPaso(descripcionPaso);
     }
 
     @Override
@@ -61,5 +49,25 @@ public class PasoViewAdapter extends RecyclerView.Adapter<PasoViewAdapter.PasoVi
             tituloPaso = itemView.findViewById(R.id.titulo_paso);
             descripcionPaso = itemView.findViewById(R.id.descripcion_paso);
         }
+
+        public void setDescripcionPaso(String descripcion) {
+            descripcionPaso.setText(descripcion);
+        }
     }
+
+    /*@Override
+    public int getItemCount() {
+        return pasos.size();
+    }
+
+    static class PasoViewHolder extends RecyclerView.ViewHolder {
+        TextView tituloPaso;
+        TextView descripcionPaso;
+
+        PasoViewHolder(View itemView) {
+            super(itemView);
+            tituloPaso = itemView.findViewById(R.id.titulo_paso);
+            descripcionPaso = itemView.findViewById(R.id.descripcion_paso);
+        }
+    }*/
 }

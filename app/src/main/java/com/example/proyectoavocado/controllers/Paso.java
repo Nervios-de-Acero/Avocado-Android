@@ -6,14 +6,19 @@ public class Paso {
     private String titulo;
     private String descripcion;
 
-    public Paso(int idPaso, int idReceta, String titulo, String descripcion) {
+    // Constructor con solo descripcion
+    public Paso(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    // Constructor completo
+    public Paso(int idPaso, String titulo, String descripcion) {
         this.idPaso = idPaso;
-        this.idReceta = idReceta;
         this.titulo = titulo;
         this.descripcion = descripcion;
     }
 
-    public Paso(int idPaso, String titulo, String descripcion){
+ /*   public Paso(int idPaso, String titulo, String descripcion){
         this.idPaso = idPaso;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -22,7 +27,7 @@ public class Paso {
     public Paso(String titulo, String descripcion ) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-    }
+    }*/
 
     public int getIdPaso() {
         return idPaso;
