@@ -60,6 +60,11 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+
         self = this;
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
