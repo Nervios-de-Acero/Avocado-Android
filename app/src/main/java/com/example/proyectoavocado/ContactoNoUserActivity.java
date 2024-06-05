@@ -22,6 +22,10 @@ public class ContactoNoUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacto_no_user);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         ImageButton btnBack = findViewById(R.id.btn_volverInicio);
         Button btnEnviar = findViewById(R.id.btn_enviar);
         etAsunto = findViewById(R.id.etAsunto);

@@ -60,6 +60,11 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+
         self = this;
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
@@ -145,13 +150,6 @@ public class PerfilActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_usuario, menu);
-        return true;
-    }
 
     /*@Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

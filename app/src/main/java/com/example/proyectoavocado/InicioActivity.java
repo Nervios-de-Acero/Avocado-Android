@@ -17,6 +17,10 @@ public class InicioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         //capturo los id de los botones
         Button btnRegistrarse = findViewById(R.id.btn_registrarse);
         Button btnIniciarSesion = findViewById(R.id.btn_iniciarsesión);

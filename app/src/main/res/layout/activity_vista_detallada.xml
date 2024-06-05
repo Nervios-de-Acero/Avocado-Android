@@ -142,9 +142,10 @@
         <TextView
             android:id="@+id/descripcionView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="143dp"
             android:paddingTop="12dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim. Suspendisse sed justo in ipsum rhoncus ornare. Nam est tellus, sodales vitae consectetur et, aliquet sed mauris."
+            android:textSize="16sp"
             tools:ignore="DuplicateIds,HardcodedText" />
 
         <LinearLayout
@@ -169,6 +170,7 @@
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Tiempo de cocción"
+              android:textSize="16sp"
               tools:ignore="HardcodedText" />
 
 
@@ -194,7 +196,8 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-              android:text="Nivel de dificultad" />
+              android:text="Nivel de dificultad"
+              android:textSize="18sp" />
         </LinearLayout>
 
       </LinearLayout>

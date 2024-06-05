@@ -53,6 +53,10 @@ public class PasosRecetaRecipeAdapter extends RecyclerView.Adapter<PasosRecetaRe
         return pasos.size();
     }
 
+    public List<String> getPasos() {
+        return pasos;
+    }
+
     static class PasoViewHolder extends RecyclerView.ViewHolder {
         TextView tituloPaso;
         TextView descripcionPaso;

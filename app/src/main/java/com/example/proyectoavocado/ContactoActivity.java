@@ -14,6 +14,10 @@ public class ContactoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacto);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         //capturo los id de los botones
         ImageButton btnBack = findViewById(R.id.btn_volverInicio);
         ImageButton btnHome = findViewById(R.id.btn_home);
