@@ -44,6 +44,10 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);
@@ -124,13 +128,13 @@ public class FeedActivity extends AppCompatActivity implements SearchView.OnQuer
                     List<Receta> listaRecetas = parsearRespuesta(response);
                     setupRecyclerView(listaRecetas);
                 } catch (JSONException e) {
-                    Log.e("Error al parsear los datos: ", e.getMessage().toString());
+                    handleError("Error al parsear los datos: " + e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error en la solicitud: ", error.getMessage().toString());
+                handleError("Error en la solicitud: " + error.getMessage());
             }
         });
         Volley.newRequestQueue(this).add(get);

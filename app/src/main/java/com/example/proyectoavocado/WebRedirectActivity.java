@@ -22,6 +22,10 @@ public class WebRedirectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_redirect);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         //capturo los id de los botones
         ImageButton btnHome = findViewById(R.id.btn_home);
         ImageButton btnAgregarReceta = findViewById(R.id.btn_agregar);

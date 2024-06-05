@@ -41,6 +41,10 @@ public class RegistrarseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrarse);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         //capturo los id de los botones
         ImageButton btnVolver = findViewById(R.id.btn_backInicio);
         Button btnRegistrarse = findViewById(R.id.btn_registrarse);

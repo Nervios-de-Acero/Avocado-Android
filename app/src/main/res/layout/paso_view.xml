@@ -7,8 +7,8 @@
     android:layout_margin="8dp">
 
     <LinearLayout
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_width="365dp"
+        android:layout_height="197dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/titulo_paso"
-            android:layout_width="match_parent"
+            android:layout_width="349dp"
             android:layout_height="36dp"
             android:layout_marginStart="5dp"
             android:text="Paso "
@@ -24,10 +24,10 @@
 
         <TextView
             android:id="@+id/descripcion_paso"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="153dp"
             android:layout_marginStart="5dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ex, volutpat sed commodo et, auctor quis nibh. Aenean mi tortor, ullamcorper quis metus a, fringilla elementum enim."
-            android:textSize="14sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
