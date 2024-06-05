@@ -47,9 +47,9 @@ router.post('/', checkSchema(validaciones), funcionescomunes.validarJSON, (req, 
 // Crear hash para usuarios de prueba
 router.post('/hash', (req, res) => {
   console.log(req.body)
-  const hash = bcrypt.hashSync(req.body.contraseña, 12)
+  const hash = bcrypt.hashSync(req.body.pass, 12)
   res.send({
-    pass: req.body.contraseña,
+    pass: req.body.pass,
     hash
   })
 })

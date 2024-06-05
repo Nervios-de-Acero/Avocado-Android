@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.activity.result.ActivityResult;
@@ -37,20 +38,26 @@ import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -220,32 +227,6 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             }
         });
 
-        ActivityResultLauncher<Intent> activityResultLauncher =
-                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if(result.getResultCode() == Activity.RESULT_OK){
-                            Intent data = result.getData();
-                            Uri uri = data.getData();
-                            try {
-                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                                perfilImagen.setImageBitmap(bitmap);
-                                convertirImagen(bitmap);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }
-                });
-        /*btnSubirImagen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            activityResultLauncher.launch(intent);
-
-            }
-        });*/
 
         // Otros botones
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -265,15 +246,6 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /*btnFavoritos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Crear un Intent para abrir FavoritosActivity
-                Intent intent = new Intent(ModificarPerfilActivity.this, favoritesActivity.class);
-                startActivity(intent);
-            }
-        });*/
 
         btnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -501,7 +473,7 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(post);
     }
 
-    private void cambiarContraseña(){
+    private void cambiarContraseña() {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/usuario/modificarPassword?_method=PUT";
 
@@ -510,22 +482,26 @@ public class ModificarPerfilActivity extends AppCompatActivity {
             datos.put("password", perfilPassword1.getText().toString());
             datos.put("nuevoPassword", perfilPassword2.getText().toString());
             datos.put("email", perfilEmail.getText().toString());
+            Log.d("DEBUGGEO", "Entra al try de cambiarContraseña");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
+
+        StringRequest post = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Drawable original;
+                Drawable originalBackground;
+                Log.d("DEBUGGEO", "Entra al string request");
                 try {
+                    Log.d("DEBUGUEO", "entra al try de onResponse");
                     JSONObject json = new JSONObject(response);
-                    Boolean success = json.getBoolean("success");
+                    boolean success = json.getBoolean("success");
                     String message = json.getString("message");
-                    Toast.makeText(getApplicationContext(),  message, Toast.LENGTH_LONG).show();
-                    if(success){
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("contrasena", perfilPassword2.getText().toString());
-                        editor.apply();
+                    Log.d("DEBUGUEO", "entra al try");
+                    if (success) {
+                        Log.d("ENTRÓ AL SUCCESS", "DEBERÍA CAMBIAR LA PASS");
+                        // Update UI and shared preferences on successful password change
+                        originalBackground = perfilPassword1.getBackground();
                         perfilPassword1.setText("");
                         perfilPassword2.setText("");
                         perfilPassword1.setEnabled(false);
@@ -535,39 +511,77 @@ public class ModificarPerfilActivity extends AppCompatActivity {
                         nuevoPass.setVisibility(View.INVISIBLE);
                         btnCambiarContraseña.setVisibility(View.VISIBLE);
 
+                        // Update shared preferences with new password
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("contraseña", perfilPassword2.getText().toString());
+                        editor.apply();
 
+                        Toast toast = Toast.makeText(ModificarPerfilActivity.this, message, Toast.LENGTH_SHORT);
+                        toast.show();
 
                     } else {
-                        original = perfilPassword1.getBackground();
+                        originalBackground = perfilPassword1.getBackground();
                         perfilPassword1.setBackgroundResource(R.drawable.borde_rojo);
                         perfilPassword2.setBackgroundResource(R.drawable.borde_rojo);
+
+
+                        String errorContent = json.getJSONObject("content").toString();
+                        Toast toast = Toast.makeText(ModificarPerfilActivity.this, message, Toast.LENGTH_SHORT);
+                        toast.show();  // Call method to parse specific error message
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                perfilPassword1.setBackground(original);
-                                perfilPassword2.setBackground(original);
+                                perfilPassword1.setBackground(originalBackground);
+                                perfilPassword2.setBackground(originalBackground);
                             }
                         }, 2000);
                     }
-
                 } catch (JSONException e) {
-                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
                     Log.e("Error en la request", "Error al actualizar los datos: " + e.getMessage());
-                    throw new RuntimeException("Error al actualizar los datos");
+                    String parseado = parseErrorMessage(e.getMessage().toString());
+                    mostrarError(parseado);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String errorMessage = error.getMessage();
-                if (errorMessage != null) {
-                    Log.e("Error", errorMessage);
+                String errorMessage = "";
+                if (error instanceof NetworkError) {
+                    errorMessage = "Error de red. Verifique su conexión a internet.";
+                } else if (error instanceof ServerError) {
+                    int statusCode = error.networkResponse.statusCode;
+                    if (statusCode == 400) {  // Check for 400 Bad Request status code
+                        try {
+                            String errorContent = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                            JSONObject errorJson = new JSONObject(errorContent);
+                            // Extract error details from the JSON response (e.g., validation errors)
+                            String validationErrors = parseErrorMessage(errorJson.toString());
+                            if (!validationErrors.isEmpty()) {
+                                errorMessage = validationErrors;
+                            } else {
+                                errorMessage = "Error desconocido al actualizar contraseña.";
+                            }
+                        } catch (JSONException e) {
+                            Log.e("Error al parsear error", "Error al parsear JSON de error: " + e.getMessage());
+                            errorMessage = "Error desconocido al actualizar contraseña.";
+                        }
+                    } else {
+                        errorMessage = "Error del servidor (" + statusCode + ").";
+                    }
+                } else if (error instanceof TimeoutError) {
+                    errorMessage = "Error de tiempo de espera. Intente nuevamente más tarde.";
+                } else if (error instanceof AuthFailureError) {
+                    errorMessage = "Error de autenticación.";
                 } else {
-                    Log.e("Error", "Mensaje de error nulo");
+                    errorMessage = "Error desconocido.";
+                }
+
+                if (!errorMessage.isEmpty()) {
+                    mostrarError(errorMessage);
                 }
             }
-        }){
+        }) {
             @Override
             public String getBodyContentType() {
                 return "application/json";
@@ -582,75 +596,58 @@ public class ModificarPerfilActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(post);
     }
 
-    private void convertirImagen(Bitmap bmp){
-        //convertir imagen
-        ByteArrayOutputStream baos;
-        baos = new ByteArrayOutputStream();
-        if(bmp != null){
-            //convertir bitmap a string
-            bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-            byte[] bytes = baos.toByteArray();
-            String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
-            subirImagen(base64);
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "Ninguna imagen seleccionada", Toast.LENGTH_SHORT).show();
+
+
+    private void mostrarError(String mensaje) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ModificarPerfilActivity.this);
+        builder.setTitle("Error");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    private String parseErrorMessage(String errorContent) {
+        try {
+            JSONObject errorJson = new JSONObject(errorContent);
+
+            // Check if the JSON structure contains an "errors" array
+            if (errorJson.has("content") && errorJson.getBoolean("success") == false) {
+                StringBuilder errorMessageBuilder = new StringBuilder();
+                JSONArray errorsArray = errorJson.getJSONArray("content");
+
+                // Loop through each error object in the array
+                for (int i = 0; i < errorsArray.length(); i++) {
+                    JSONObject errorObject = errorsArray.getJSONObject(i);
+
+                    // Extract and format the error message based on the structure
+                    String message = errorObject.optString("msg", "");
+                    String field = errorObject.optString("path", "");  // Optional field
+
+                    if (!message.isEmpty()) {
+                        if (!field.isEmpty()) {
+                            errorMessageBuilder.append(field + ": ");
+                        }
+                        errorMessageBuilder.append(message).append("\n");
+                    }
+                }
+
+                // Return the concatenated string with newline separators
+                return errorMessageBuilder.toString().trim();
+            } else {
+                // If "errors" array is not found, try parsing the original content
+                return "Error de estructura de array";  // Call a helper method for legacy format
+            }
+        } catch (JSONException e) {
+            // Handle JSON parsing errors
+            Log.e("Error al parsear error", "Error al parsear JSON de error: " + e.getMessage());
+            return errorContent;  // Return original errorContent as fallback
         }
     }
-    private void subirImagen(String imagen){
-        String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/usuario/actualizarImagen?_method=PUT";
-        // String url = "http://" + pc_ip + ":3000/usuario/mostrar";
-        StringRequest post = new StringRequest(Request.Method.POST, url,  new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    String message = json.getString("message");
-                    Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
 
-                } catch (JSONException e) {
-                    //Modificar el mensaje para personalizarlo (mensaje para logcat)
-                    Log.e("Error en la request", "Error al actualizar los datos: " + e.getMessage());
-                    throw new RuntimeException("Error al actualizar los datos");
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                String errorMessage = error.getMessage();
-                if (errorMessage != null) {
-                    Log.e("Error", errorMessage);
-                } else {
-                    Log.e("Error", "Mensaje de error nulo");
-                }
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-
-            @Override
-            public byte[] getBody() {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("email", String.valueOf(perfilEmail.getText()));
-                    jsonObject.put("imagen", imagen);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return jsonObject.toString().getBytes();
-            }
-
-            @Override
-            public String getBodyContentType() {
-                return "application/json";
-            }
-        };
-
-        Volley.newRequestQueue(this).add(post);
-    }
 }

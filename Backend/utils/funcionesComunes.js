@@ -14,7 +14,7 @@ funciones.validarJSON = (req, res, next) => {
     const resValidaciones = validationResult(req).array()
 
     if (resValidaciones.length > 0) {
-        res.status(400).json({
+        res.send({
             success: false,
             message: "Error de validación",
             content: resValidaciones

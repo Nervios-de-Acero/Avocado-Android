@@ -53,17 +53,20 @@ return
 });
 
 router.put('/modificarPassword', checkSchema(validacionesPass), funcionescomunes.validarJSON, (req, res) =>{
+  const email = req.body.email,
+        pass = req.body.password,
+        nuevoPass = req.body.nuevoPassword;
 
   try{
 
     db.query(`CALL sp_getUsuario('${email}')`, (error, results) =>{
-
+console.log('entra a sp getusuario')
       if(error){
 
-        console.log('as')
         res.send({
           success: false,
           message: error.sqlMessage,
+          content: ''
         });
         
         return;
@@ -71,16 +74,16 @@ router.put('/modificarPassword', checkSchema(validacionesPass), funcionescomunes
 
         const resultado = results[0][0];
 
-        if(bcrypt.compareSync(pass, resultado.contraseña)){
+        if(bcrypt.compare(pass, resultado.contraseña)){
 
           db.query(`CALL sp_actualizarPerfil('${email}', null, null, null, '${bcrypt.hashSync(nuevoPass, 12)}')`, function(error, results){
             
             if(error){
 
-              console.log('ac')
               res.send({
                 success: false,
-                message: error,
+                message: error.sqlMessage,
+                content: ''
               });
               return;
             } else {
@@ -88,6 +91,7 @@ router.put('/modificarPassword', checkSchema(validacionesPass), funcionescomunes
               res.send({
                 success: true,
                 message: 'Contraseña actualizada correctamente',
+                content: ''
               });
               return;
             }
@@ -96,7 +100,8 @@ router.put('/modificarPassword', checkSchema(validacionesPass), funcionescomunes
 
           res.send({
             success: false,
-            message: 'La contraseña es incorrecta'
+            message: 'La contraseña es incorrecta',
+            content: ''
           });
         }
       }
@@ -106,6 +111,7 @@ router.put('/modificarPassword', checkSchema(validacionesPass), funcionescomunes
     res.send({
       success: false,
       message: e,
+      content: ''
     });
   }
 
