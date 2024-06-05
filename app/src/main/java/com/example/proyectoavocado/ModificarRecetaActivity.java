@@ -278,46 +278,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         });
     }
 
-    /* private void mostrarDialogoPasos() {
-         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-         LayoutInflater inflater = getLayoutInflater();
-         View dialogView = inflater.inflate(R.layout.dialog_agregar_paso, null);
-         builder.setView(dialogView);
-
-         //EditText editTextTituloPaso = dialogView.findViewById(R.id.text_tituloPaso);
-         EditText editTextDescripcionPaso = dialogView.findViewById(R.id.text_descripcionPaso);
-         Button btnAgregarPaso = dialogView.findViewById(R.id.btn_agregarPasoDialog);
-         ImageButton btnCerrarDialogPaso = dialogView.findViewById(R.id.btn_close_dialogPaso);
-
-         AlertDialog dialog = builder.create();
-         dialog.show();
-
-
-         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 //String tituloPaso = editTextTituloPaso.getText().toString().trim();
-                 String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-                 if (!tituloPaso.isEmpty() && !descripcionPaso.isEmpty()) {
-                     // Agrega el paso a la lista y actualiza el adaptador
-                     Paso nuevoPaso = new Paso(tituloPaso, descripcionPaso);
-                     pasosList.add(nuevoPaso);
-                     pasosAdapter.notifyDataSetChanged();
-                     dialog.dismiss();
-                 } else {
-                     // Muestra un mensaje de error si alguno de los campos está vacío
-                     Toast.makeText(ModificarRecetaActivity.this, "Por favor, completa todos los campos del paso", Toast.LENGTH_SHORT).show();
-                 }
-             }
-         });
-
-         btnCerrarDialogPaso.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 dialog.dismiss();
-             }
-         });
-     }*/
     private void mostrarDialogoPasos() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -331,22 +291,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-       /*btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               String descripcionPaso = editTextDescripcionPaso.getText().toString().trim();
-               if (!descripcionPaso.isEmpty()) {
-                   // Agrega la descripción del paso a la lista y actualiza el adaptador
-                   Paso nuevoPaso = new Paso(descripcion); // Solo necesitas la descripción
-                   pasosList.add(nuevoPaso);
-                   pasosAdapter.notifyDataSetChanged();
-                   dialog.dismiss();
-               } else {
-                   // Muestra un mensaje de error si el campo está vacío
-                   Toast.makeText(ModificarRecetaActivity.this, "Por favor, ingresa la descripción del paso", Toast.LENGTH_SHORT).show();
-               }
-           }
-       });*/
         btnAgregarPaso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -436,18 +380,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
         }
         return ingredientes;
     }
-
-    /* private List<Paso> obtenerListaDePasos(JSONArray jsonArray) throws JSONException {
-        List<Paso> pasos = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject pasoJson = jsonArray.getJSONObject(i);
-            String titulo = pasoJson.getString("titulo");
-            String descripcion = pasoJson.getString("descripcion");
-            Paso paso = new Paso(titulo, descripcion);
-            pasos.add(paso);
-        }
-        return pasos;
-    }*/
     private JSONArray obtenerListaDePasos(List<String> pasos) throws JSONException {
         JSONArray pasosArray = new JSONArray();
         for (String paso : pasos) {
@@ -597,82 +529,6 @@ public class ModificarRecetaActivity extends AppCompatActivity {
     }
 
     // Método para modificar los pasos de la receta
-    /*private void modificarPasos(int idReceta, List<Paso> nuevosPasos) {
-        String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/receta/modificarPasos?_method=PUT";
-
-        // Crea el cuerpo de la solicitud en formato JSON
-        JSONArray pasosArray = new JSONArray();
-        for (Paso paso : nuevosPasos) {
-            JSONObject pasoObject = new JSONObject();
-            try {
-                // Enviar solo la descripción del paso
-                pasoObject.put("descripcion", paso.getDescripcion());
-                pasosArray.put(pasoObject);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        JSONObject requestBody = new JSONObject();
-        try {
-            requestBody.put("idReceta", idReceta);
-            requestBody.put("pasos", pasosArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Crea la solicitud POST
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // Manejar la respuesta del servidor si es necesario
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Manejar errores de la solicitud si es necesario
-                    }
-                });
-
-        // Añade la solicitud a la cola de solicitudes de Volley
-        Volley.newRequestQueue(this).add(request);
-    }*/
-    /*private void modificarPasos(int idReceta, List<String> nuevosPasos) {
-        String pc_ip = getResources().getString(R.string.pc_ip);
-        String url = "http://" + pc_ip + ":3000/receta/modificarPasos?_method=PUT";
-
-        // Crea el cuerpo de la solicitud en formato JSON
-        JSONArray pasosArray = new JSONArray(nuevosPasos);
-
-        JSONObject requestBody = new JSONObject();
-        try {
-            requestBody.put("idReceta", idReceta);
-            requestBody.put("pasos", pasosArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Crea la solicitud POST
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestBody,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // Manejar la respuesta del servidor si es necesario
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Manejar errores de la solicitud si es necesario
-                    }
-                });
-
-        // Añade la solicitud a la cola de solicitudes de Volley
-        Volley.newRequestQueue(this).add(request);
-    }*/
     private void modificarPasos(int idReceta, List<String> nuevosPasos) {
         String pc_ip = getResources().getString(R.string.pc_ip);
         String url = "http://" + pc_ip + ":3000/receta/modificarPasos";
