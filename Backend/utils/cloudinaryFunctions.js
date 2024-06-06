@@ -6,7 +6,7 @@ let funcionesCloudinary = {};
  * Sube una imagen
  * @param {imagePath}
  */
-funcionesCloudinary.subirImagen = async (imagePath) => {
+funcionesCloudinary.subirImagen = async (base64) => {
 
     //Usa el nombre del archivo como el ID publico del asset
     //Habilita la sobreescritura del asset con nuevas versiones
@@ -16,7 +16,9 @@ funcionesCloudinary.subirImagen = async (imagePath) => {
       overwrite: true,
     };
 
-    const respuesta = {}
+    const respuesta = {};
+    const sanitizedBase64 = base64.replace(/\s/g, '');
+    const imagePath = `data:image/jpeg;base64,${sanitizedBase64}`;
 
     try {
 

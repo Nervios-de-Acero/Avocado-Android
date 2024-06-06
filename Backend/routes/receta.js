@@ -4,6 +4,7 @@ const db = require('../conection')
 const { checkSchema, validationResult } = require('express-validator')
 const validaciones = require('../utils/validacionesRecetas')
 const funcionescomunes = require('../utils/funcionesComunes')
+const funcionesCloudinary = require('../utils/cloudinaryFunctions')
 
 router.get('/getCategorias', (req, res)=> {
   db.query(`SELECT * FROM categorias;`,function(error, results){
@@ -103,15 +104,17 @@ router.get('/getProductos', (req, res)=> {
   })
 })
 
-router.post('/agregarReceta', checkSchema(validaciones), funcionescomunes.validarJSON, (req, res)=>{
+router.post('/agregarReceta', checkSchema(validaciones), funcionescomunes.validarJSON, async (req, res)=>{
   
   const categorias = req.body.categorias ? req.body.categorias :  null;
   const tiempoCoccion =  req.body.tiempoCoccion ? req.body.tiempoCoccion :  null;
   const dificultad = req.body.dificultad ? req.body.dificultad :  null;
+
+  const responseImagen = await funcionesCloudinary.subirImagen(req.body.imagen);
   
   try{
 
-    db.query(`CALL sp_crearReceta('${req.body.email}', '${req.body.titulo}', '${tiempoCoccion}', '${dificultad}', '${req.body.descripcion}', '${req.body.imagen}', '${JSON.stringify(req.body.ingredientes)}', '${JSON.stringify(req.body.pasos)}', '${JSON.stringify(categorias)}');`, (error, results) => {
+    db.query(`CALL sp_crearReceta('${req.body.email}', '${req.body.titulo}', '${tiempoCoccion}', '${dificultad}', '${req.body.descripcion}', '${responseImagen.secure_url}', '${JSON.stringify(req.body.ingredientes)}', '${JSON.stringify(req.body.pasos)}', '${JSON.stringify(categorias)}');`, (error, results) => {
     
       if(error){
   
